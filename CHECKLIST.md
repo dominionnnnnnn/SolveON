@@ -29,8 +29,9 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Typical first-phase timelines** per service (design defaults: 4–6, 4–6, 3–5, 2–4, 2–3, 4–6 weeks). Once confirmed, remove the "[Adjust to your real delivery times.]" note.
 - [ ] **Support after launch**: confirm the number of days of fixes included (shows `[30]`).
 
-### Work page
-- [ ] Nothing page-specific. It's driven entirely by the projects list above.
+### Work + case-study pages (`src/lib/projects.ts`)
+- [ ] For each project, the **case-study page** content: year, timeline, the problem (2–3 sentences), what you built (3 points), results (3 numbers with labels), tech stack, optional client quote and live link.
+- [ ] Give each project a real **slug** (its URL, e.g. `/work/lekki-salon-bookings`) and set **`draft: false`** once it's real. Drafts can be previewed but are hidden from Google and the sitemap.
 
 ### Other pages
 - [ ] Pricing figures (design shows `₦ [—]`)
@@ -40,8 +41,8 @@ Tick items off (`[x]`) as they're done.
 
 ## 2. Decisions needed from you 🟡
 
-- [ ] **Work headline wrap.** At laptop widths the design's headline breaks as "Products that had / **to** / work for real / users.", leaving "to" on its own line. The build matches the design. Options: shorten it (e.g. "Products built for real users."), or I force a cleaner break. Your call.
-- [ ] **Case-study pages.** Should each project get its own page (`/work/<slug>`) with the full story? Good for SEO and sales. Until then, cards link to Contact (Work) and Work (Home), as in the design.
+- [x] **Work headline wrap.** Decided: keep the copy and type size; the text column is wider on Work so each line fits (two clean lines from tablet up).
+- [x] **Case-study pages.** Decided: yes. Built at `/work/<slug>`; all project cards on Home and Work link there.
 - [ ] **Production domain.** Needed for canonical links, the sitemap and social previews. Set `NEXT_PUBLIC_SITE_URL` in Vercel once decided. Until then the code assumes `https://solveon.vercel.app`.
 - [ ] **Hosting.** Vercel (like your portfolio) is the natural fit. Connecting the repo is a one-time step in your Vercel account.
 - [ ] **Contact form destination.** Where should enquiries go: email, WhatsApp, a Google Sheet, a CRM? Decides how I build the Contact form.
@@ -58,7 +59,6 @@ Tick items off (`[x]`) as they're done.
 | Review/rating structured data | Needs real testimonials | Testimonials |
 | Section links in the nav (`/pricing#faq`, `/#testimonials` from other pages) | Target sections don't exist until those pages are built; links land on the page top. `/about#team`, `/about#how-we-work` and all `/services#…` links now work | Building each page |
 | Service "Explore →" links go to Contact without saying which service | The design links every row to Contact. Once the contact form exists, each row can pre-select its service | Contact form |
-| Individual case-study pages (`/work/<slug>`) | Not in the design; needs real project content | Your decision above + project content |
 | Insights cards link to `/resources`, not real articles | No articles yet | Articles |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
 
@@ -73,6 +73,7 @@ Tick items off (`[x]`) as they're done.
 | Home | ✅ Built to design. Content placeholders above |
 | Services | ✅ Built to design. Content placeholders above |
 | Work | ✅ Built to design. Content via projects list |
+| Case-study pages (`/work/<slug>`) | ✅ Built (no design; uses the site's own components). Content via projects list |
 | Pricing | ⬜ Next |
 | About | ✅ Built to design. Content placeholders above |
 | Resources | ⬜ |
@@ -93,4 +94,7 @@ Tick items off (`[x]`) as they're done.
 - Work filters: the design only drew the buttons; in the build they filter by each project's categories (All 6 · Web 3 · Mobile 1 · Backend 3 · AI & WhatsApp 1 with the current placeholders).
 - Case-study cards on phones: in the design the illustration covers the tagline (and the mobile export overflows sideways). The build shrinks the illustration into the bottom-right corner on phones, on both Home and Work.
 - Home and Work cards share one component and one project list; the illustrations keep each page's exact sizes from the design.
+- Work hero: the text column is wider than on other pages (680px vs 520px basis) so "Products that had to" fits on one line; the illustration column narrows to fit.
+- Case-study pages have no design. They're built from the site's existing pieces (hero, facts row, the project's card image at full width, problem / what we built, dark results band, stack, quote, next case study, the Work CTA). Draft projects get `noindex`; real ones also publish CreativeWork structured data.
+- Unknown `/work/...` URLs return a real 404 with the site's 404 page.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

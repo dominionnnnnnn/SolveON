@@ -375,39 +375,59 @@ function ProjectVisual({ visual, size }: { visual: Visual; size: Size }) {
 
 /* ------------------------------------------------------------------ */
 
-export function ProjectCard({ project, size }: { project: Project; size: Size }) {
+/** The coloured card image: label, tagline and illustration. Used on cards and case-study pages. */
+export function ProjectMedia({
+  project,
+  size,
+  height,
+  className = "",
+}: {
+  project: Project;
+  size: Size;
+  /** Overrides the card height (360 on Home, 340 on Work) */
+  height?: number;
+  className?: string;
+}) {
   const t = themes[project.theme];
   const home = size === "home";
   return (
-    // As in the design: Home cards open the Work page, Work cards go to Contact.
-    // TODO: link both to /work/<slug> once case-study pages exist.
-    <Link className="wcard block hover:text-ink" href={home ? "/work" : "/contact"}>
-      <div
-        className="wmedia relative overflow-hidden rounded-2xl"
-        style={{
-          height: home ? 360 : 340,
-          background: t.bg,
-          color: t.fg,
-          border: t.border && home ? "1px solid rgba(17,17,17,.1)" : undefined,
-          boxSizing: "border-box",
-        }}
-      >
-        <div className="absolute left-7 top-[26px] flex items-center gap-3 text-xs font-semibold">
-          <span className="chip">Case study</span>
-          <span style={{ opacity: t.divider }}>|</span>
-          <span>{project.client}</span>
-        </div>
-        <p
-          className="absolute bottom-[30px] left-7 m-0 font-semibold leading-[1.3] tracking-[-0.02em]"
-          style={{ maxWidth: t.taglineW, fontSize: home ? 24 : 23, color: t.tagline }}
-        >
-          {project.tagline}
-        </p>
-        {/* On phones this layer shrinks into the bottom-right corner so it clears the tagline */}
-        <div aria-hidden="true" className="wvis absolute inset-0">
-          <ProjectVisual visual={project.visual} size={size} />
-        </div>
+    <div
+      className={`wmedia relative overflow-hidden rounded-2xl ${className}`}
+      style={{
+        height: height ?? (home ? 360 : 340),
+        background: t.bg,
+        color: t.fg,
+        // The white card has a hairline border on white backgrounds (Home, case-study page);
+        // on the Work page's cream background the design leaves it off.
+        border:
+          t.border && (home || height !== undefined) ? "1px solid rgba(17,17,17,.1)" : undefined,
+        boxSizing: "border-box",
+      }}
+    >
+      <div className="absolute left-7 top-[26px] flex items-center gap-3 text-xs font-semibold">
+        <span className="chip">Case study</span>
+        <span style={{ opacity: t.divider }}>|</span>
+        <span>{project.client}</span>
       </div>
+      <p
+        className="absolute bottom-[30px] left-7 m-0 font-semibold leading-[1.3] tracking-[-0.02em]"
+        style={{ maxWidth: t.taglineW, fontSize: home ? 24 : 23, color: t.tagline }}
+      >
+        {project.tagline}
+      </p>
+      {/* On phones this layer shrinks into the bottom-right corner so it clears the tagline */}
+      <div aria-hidden="true" className="wvis absolute inset-0">
+        <ProjectVisual visual={project.visual} size={size} />
+      </div>
+    </div>
+  );
+}
+
+export function ProjectCard({ project, size }: { project: Project; size: Size }) {
+  const home = size === "home";
+  return (
+    <Link className="wcard block hover:text-ink" href={`/work/${project.slug}`}>
+      <ProjectMedia project={project} size={size} />
       <div className="mt-5 flex items-center justify-between border-t border-ink/12 pt-4">
         <h3 className={`text-[19px] font-semibold ${home ? "tracking-[-0.01em]" : ""}`}>
           {project.name}

@@ -5,7 +5,8 @@ export function WorkHero() {
     <section className="relative overflow-hidden">
       <div className="gridbg gridbg-down absolute inset-0" aria-hidden="true" />
       <div className="wrap relative flex flex-wrap items-center gap-12 py-20">
-        <div className="min-w-0 flex-[1_1_100%] phone:flex-[1_1_520px]">
+        {/* Text column is wider than on other pages: each headline line needs ~665px at full size */}
+        <div className="min-w-0 flex-[1_1_100%] phone:flex-[1_1_680px]">
           <span className="eb">Work</span>
           <h1 className="disp h1-page mt-[22px] max-phone:text-[42px]">
             Products that had to
@@ -28,7 +29,7 @@ export function WorkHero() {
 
         {/* Dashboard + phone */}
         <div
-          className="hv relative h-[400px] w-full flex-[0_0_auto] phone:w-auto phone:flex-[1_1_420px]"
+          className="hv relative h-[400px] w-full flex-[0_0_auto] phone:w-auto phone:flex-[1_1_400px]"
           role="img"
           aria-label="A web dashboard and a phone app shown together"
         >

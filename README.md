@@ -21,7 +21,7 @@ npx prettier --write .   # format
 | `src/components/` | Shared UI: `header.tsx` (desktop dropdowns + mobile menu), `footer.tsx`, `logo.tsx` (wordmark, light/dark) |
 | `src/app/<page>/page.tsx` | One folder per page, each with its own SEO metadata |
 | `src/lib/content.ts` | Content shared across pages: founders, the five phases |
-| `src/lib/projects.ts` | Case studies for Home (first four) and Work (all), with filter categories |
+| `src/lib/projects.ts` | Case studies for Home (first four), Work (all) and each `/work/<slug>` page. `draft: true` hides a project page from Google |
 | `src/components/home/`, `about/`, `services/`, `work/` | Page sections. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
 | `src/app/sitemap.ts`, `robots.ts` | Generated `sitemap.xml` and `robots.txt` |
 | `src/fonts/` | Self-hosted Plus Jakarta Sans (Geist comes from the `geist` package) |

@@ -68,4 +68,5 @@ Tick items off (`[x]`) as they're done.
 
 - The headline on Home has an explicit line break after "around" on tablet and desktop. The self-hosted font renders slightly narrower than the design tool's, so a natural wrap would put "what" on line one.
 - The design's ≤960px rule pinned the services panel at `top: 0` under a sticky 64px header. The build uses `top: 64px` there so the header doesn't cover it.
+- The design turned off the services scroll animation on windows 1400px+ tall. That also caught zoomed-out browsers and large monitors, so the effect silently disappeared. The build pins whenever the panel fits on screen and only falls back to tap-to-open on very short windows (phone held sideways).
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

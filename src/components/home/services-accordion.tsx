@@ -184,6 +184,7 @@ function TagRow({
 export function ServicesAccordion() {
   const pinRef = useRef<HTMLDivElement>(null);
   const vpRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const fRef = useRef(0);
   const targetRef = useRef(0);
   const rafRef = useRef<number | null>(null);
@@ -231,8 +232,11 @@ export function ServicesAccordion() {
   useEffect(() => {
     const measure = () => {
       if (vpRef.current) setCw(vpRef.current.clientWidth);
-      // Very tall screens see the whole section at once, so no pinning.
-      setPinned(window.innerHeight < 1400);
+      // Pin whenever the whole panel fits on screen. Only very short windows
+      // (e.g. a phone held sideways) skip pinning; there the panels are tapped instead.
+      const sticky = stickyRef.current;
+      const headerOffset = window.innerWidth <= 960 ? 64 : 0;
+      setPinned(!!sticky && sticky.offsetHeight <= window.innerHeight - headerOffset);
     };
     measure();
     window.addEventListener("resize", measure);
@@ -249,6 +253,7 @@ export function ServicesAccordion() {
   useEffect(
     () => () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null; // so a remount (e.g. React strict mode) can animate again
     },
     [],
   );
@@ -278,6 +283,7 @@ export function ServicesAccordion() {
     <section className="wrap svc-sec pt-16 phone:pt-28" aria-labelledby="what-we-build">
       <div ref={pinRef} className="relative" style={{ height: pinned ? PIN_HEIGHT : "auto" }}>
         <div
+          ref={stickyRef}
           className="svc-sticky top-0 bg-white py-7"
           style={{ position: pinned ? "sticky" : "relative" }}
         >

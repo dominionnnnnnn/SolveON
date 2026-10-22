@@ -279,6 +279,19 @@
   color: inherit;
 }
 
+/* Resources: article cards lift on hover */
+.acard {
+  transition: transform 0.25s;
+}
+.acard:hover {
+  transform: translateY(-3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .acard:hover {
+    transform: none;
+  }
+}
+
 /* Services page: list rows nudge their arrow on hover */
 .rowgo {
   transition: transform 0.2s;

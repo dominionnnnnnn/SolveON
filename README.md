@@ -21,8 +21,10 @@ npx prettier --write .   # format
 | `src/components/` | Shared UI: `header.tsx` (desktop dropdowns + mobile menu), `footer.tsx`, `logo.tsx` (wordmark, light/dark) |
 | `src/app/<page>/page.tsx` | One folder per page, each with its own SEO metadata |
 | `src/lib/content.ts` | Content shared across pages: founders, the five phases |
+| `src/lib/articles.ts` | Insights articles for Resources (all, with the featured one) and Home (first three) |
+| `src/app/api/newsletter/route.ts` | Newsletter sign-up endpoint (connect an email provider here) |
 | `src/lib/projects.ts` | Case studies for Home (first four), Work (all) and each `/work/<slug>` page. `draft: true` hides a project page from Google |
-| `src/components/home/`, `about/`, `services/`, `work/`, `pricing/` | Page sections. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
+| `src/components/home/`, `about/`, `services/`, `work/`, `pricing/`, `resources/` | Page sections. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
 | `src/app/sitemap.ts`, `robots.ts` | Generated `sitemap.xml` and `robots.txt` |
 | `src/fonts/` | Self-hosted Geist and Plus Jakarta Sans: the Google Fonts files (via Fontsource), so text measures exactly as in the design |
 | `public/` | Assets: `brand/` (logo + icon), `icons/`, `illustrations/`, `tech/`. Favicons live in `src/app/` (`favicon.ico`, `icon.svg`, `apple-icon.png`) |
@@ -39,6 +41,7 @@ npx prettier --write .   # format
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Production URL, used for canonical links, Open Graph and the sitemap. Set this in Vercel once the domain is live. |
+| `NEWSLETTER_PROVIDER` (+ provider API key) | Turns on newsletter sign-ups once a provider is connected in `src/app/api/newsletter/route.ts` |
 
 ## Status
 
@@ -50,6 +53,7 @@ See [`CHECKLIST.md`](CHECKLIST.md) for everything still open: content needed, de
 - [x] Services
 - [x] Work (+ case-study pages)
 - [x] Pricing
-- [ ] Resources, Contact
+- [x] Resources
+- [ ] Contact
 - [x] Real logo and favicons
 - [ ] Real contact details, team photos, projects and prices

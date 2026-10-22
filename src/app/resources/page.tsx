@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageStub } from "@/components/page-stub";
+import { LatestGuides } from "@/components/resources/latest-guides";
+import { Newsletter } from "@/components/resources/newsletter";
+import { ResourcesHero } from "@/components/resources/resources-hero";
 
 const description =
   "Plain-language answers on what software costs, how long it takes and what to build first, written from the projects we deliver.";
@@ -11,18 +13,12 @@ export const metadata: Metadata = {
   openGraph: { title: "Insights", description, url: "/resources" },
 };
 
-export default function Page() {
+export default function ResourcesPage() {
   return (
-    <PageStub
-      label="Insights"
-      title={
-        <>
-          Guides for people
-          <br />
-          who have to <span className="mk">decide.</span>
-        </>
-      }
-      lead={description}
-    />
+    <>
+      <ResourcesHero />
+      <LatestGuides />
+      <Newsletter />
+    </>
   );
 }

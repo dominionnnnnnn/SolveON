@@ -19,7 +19,7 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): 6 projects, each with name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters. Real screenshots can replace the drawn illustrations later.
 - [ ] **Testimonials** (`testimonials.tsx`): 4 quotes, each with name, role and company.
 - [ ] **FAQ answers** (`faq.tsx`): 6 answers, all placeholders.
-- [ ] **Insights articles** (`insights.tsx`): 3 article cards (title, date, summary). Can wait until Resources has real articles.
+- [ ] **Insights cards**: now come from the articles list (first three non-featured); see Resources below.
 
 ### About page (`src/components/about/about-sections.tsx`)
 - [ ] **Founding story**: two short paragraphs (why you started; how you work differently).
@@ -38,6 +38,9 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Proposal turnaround**: "usually within `[3]` days".
 - [ ] **Pricing FAQ answers**: 5 answers, all placeholders.
 
+### Resources page (`src/lib/articles.ts`, one list for Resources and Home)
+- [ ] **Articles**: 1 featured (title, summary, date, read time, two-line cover text; the design's is "Build vs / buy.") and 6 more (title, summary, category, date). Categories: Cost & planning, Product, Engineering, Case notes.
+
 ### Other pages
 - [ ] Privacy policy and Terms text (`/privacy` and `/terms` exist as placeholders, hidden from Google)
 
@@ -47,6 +50,8 @@ Tick items off (`[x]`) as they're done.
 
 - [x] **Work headline wrap.** Decided: keep the copy and type size; the text column is wider on Work so each line fits (two clean lines from tablet up).
 - [x] **Case-study pages.** Decided: yes. Built at `/work/<slug>`; all project cards on Home and Work link there.
+- [ ] **Newsletter provider.** The sign-up form works but isn't connected to an email service, so it honestly replies "Sign-ups aren't open yet." Options: **Brevo** (free up to 300 emails/day, good for Nigeria-based senders), **Mailchimp**, **Buttondown** (simple, writer-focused) or **Kit/ConvertKit**. Pick one and I'll connect it (`src/app/api/newsletter/route.ts`).
+- [ ] **Article pages (`/resources/<slug>`).** Not in the design; cards link to Resources for now. My recommendation: write articles as **MDX files in the repo** (`content/insights/*.mdx`), which is free, fast, versioned in GitHub, with a `draft` flag like case studies. If your partner (non-developer) will write them, a **headless CMS** (e.g. Sanity, free tier) is friendlier. Your call on who writes, then I'll build it.
 - [ ] **Production domain.** Needed for canonical links, the sitemap and social previews. Set `NEXT_PUBLIC_SITE_URL` in Vercel once decided. Until then the code assumes `https://solveon.vercel.app`.
 - [ ] **Hosting.** Vercel (like your portfolio) is the natural fit. Connecting the repo is a one-time step in your Vercel account.
 - [ ] **Contact form destination.** Where should enquiries go: email, WhatsApp, a Google Sheet, a CRM? Decides how I build the Contact form.
@@ -61,9 +66,8 @@ Tick items off (`[x]`) as they're done.
 | FAQ structured data (Google rich results), Home and Pricing | Would publish the placeholder answers to Google | FAQ answers |
 | Social share image (Open Graph) | Should use final copy and brand; easy to add once pages settle | Before launch |
 | Review/rating structured data | Needs real testimonials | Testimonials |
-| Section links in the nav | All work now (`/about#…`, `/services#…`, `/pricing#faq`, `/#testimonials`) except Resources' "Insights", which waits on that page | Resources page |
 | Service "Explore →" links go to Contact without saying which service | The design links every row to Contact. Once the contact form exists, each row can pre-select its service | Contact form |
-| Insights cards link to `/resources`, not real articles | No articles yet | Articles |
+| Article cards (Resources + Home) link to `/resources`, not to individual articles | No article pages yet | Your decision on article pages |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
 
 ---
@@ -80,8 +84,8 @@ Tick items off (`[x]`) as they're done.
 | Case-study pages (`/work/<slug>`) | ✅ Built (no design; uses the site's own components). Content via projects list |
 | Pricing | ✅ Built to design. Content placeholders above |
 | About | ✅ Built to design. Content placeholders above |
-| Resources | ⬜ Next |
-| Contact | ⬜ |
+| Resources | ✅ Built to design. Content via articles list |
+| Contact | ⬜ Next |
 | Launch: domain, Vercel, final SEO pass | ⬜ |
 
 ## Design notes (kept for reference)
@@ -104,4 +108,7 @@ Tick items off (`[x]`) as they're done.
 - **Type metrics match the design exactly.** Both fonts are the Google Fonts files the design uses (self-hosted via Fontsource), and line heights follow the design's browser default instead of Tailwind's built-in 1.5 and per-size values. Measured with real fonts on both sides, every desktop section on Home, About, Services and Pricing is within 2px of the design.
 - **Phones: stacked instead of squeezed.** In several places the design's phone layout squeezes 3–5 columns into a 390px screen (Home stats and phases, About values, Pricing "In every phase" and "How pricing works"), leaving one word per line. Its phone rules never take effect. The build stacks those into readable rows, which is what the rules intended.
 - Home and Pricing FAQs share one component; Pricing FAQ has the `#faq` anchor the nav and Home link to.
+- Resources filters and "Load more" work (the design drew them as static buttons). Filtering also applies to the featured article. "Load more" only appears when there are more than 6 articles in the current filter, so with today's 6 placeholders it's hidden.
+- Resources hero "Pricing FAQ" button goes straight to `/pricing#faq`.
+- Newsletter form: real email validation, a status message under the form (positioned so it doesn't shift the layout), and an honest "not open yet" reply until a provider is connected.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

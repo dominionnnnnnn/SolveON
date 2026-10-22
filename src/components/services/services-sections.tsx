@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { supportDays } from "@/lib/content";
 
 /* ------------------------------------------------------------------ */
 /* Content                                                             */
@@ -156,8 +157,8 @@ const included: { title: string; desc: string; icon: ReactNode; dark?: boolean }
   },
   {
     title: "Support after launch",
-    // TODO: confirm the number of days of fixes included
-    desc: "[30] days of fixes included, then optional ongoing care.",
+    // Days set in src/lib/content.ts (supportDays)
+    desc: `${supportDays} days of fixes included, then optional ongoing care.`,
     dark: true,
     icon: (
       <svg {...smallIcon}>

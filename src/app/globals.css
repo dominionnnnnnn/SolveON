@@ -17,6 +17,17 @@
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-display: var(--font-jakarta), system-ui, sans-serif;
 
+  /* Tailwind's named text sizes normally bundle a line height (text-sm = 14px/20px).
+     The design doesn't, so the sizes inherit the page default here;
+     add a leading-* class where a block needs more room. */
+  --text-xs--line-height: inherit;
+  --text-sm--line-height: inherit;
+  --text-base--line-height: inherit;
+  --text-lg--line-height: inherit;
+  --text-xl--line-height: inherit;
+  --text-2xl--line-height: inherit;
+  --text-3xl--line-height: inherit;
+
   --breakpoint-tab: 961px; /* above the 960px tablet breakpoint */
   --breakpoint-phone: 641px; /* above the 640px phone breakpoint */
 }
@@ -25,6 +36,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+  }
+  /* The design uses the browser's default line height ("normal"), not Tailwind's 1.5.
+     Text that needs more room sets its own leading. */
+  html {
+    line-height: normal;
   }
   body {
     margin: 0;

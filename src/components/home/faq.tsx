@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { FaqList, type FaqItem } from "@/components/faq-list";
 
 // TODO: write the real answers. Once they're in, add FAQPage structured data
 // so the answers can show directly in Google results.
-export const homeFaqs = [
+export const homeFaqs: FaqItem[] = [
   {
     q: "Can you build a whole product in six weeks?",
     a: "[Answer: most products ship as a first focused phase in 4–6 weeks, then grow in further phases.]",
@@ -21,28 +22,7 @@ export function Faq() {
         <h2 className="disp h2">
           Before you start <span className="mk">a project</span>
         </h2>
-        <div className="mt-11 border-t border-ink/12">
-          {homeFaqs.map((f, i) => (
-            <details key={f.q} open={i === 0} className="group border-b border-ink/12">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-[22px] text-[17px] font-semibold [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <svg
-                  className="shrink-0 transition-transform duration-200 group-open:rotate-180"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  aria-hidden="true"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </summary>
-              <p className="muted mb-6 text-base leading-[1.65]">{f.a}</p>
-            </details>
-          ))}
-        </div>
+        <FaqList items={homeFaqs} />
         <Link href="/pricing#faq" className="btn mt-8">
           Read all FAQs
         </Link>

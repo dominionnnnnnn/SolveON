@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { PageStub } from "@/components/page-stub";
+import {
+  Engagements,
+  HowPricingWorks,
+  InEveryPhase,
+  PricingCta,
+  PricingFaq,
+  PricingHero,
+} from "@/components/pricing/pricing-sections";
 
 const description =
-  "Software isn't bought off a menu. After a short discovery call we quote one focused phase, based on what you need, the platforms involved and the risk.";
+  "We price one focused phase at a time. After a short discovery call you get a written scope, timeline and fixed price, with design, QA and handover included.";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -11,18 +18,15 @@ export const metadata: Metadata = {
   openGraph: { title: "Pricing", description, url: "/pricing" },
 };
 
-export default function Page() {
+export default function PricingPage() {
   return (
-    <PageStub
-      label="Pricing"
-      title={
-        <>
-          We price a phase,
-          <br />
-          <span className="mk">not a guess.</span>
-        </>
-      }
-      lead={description}
-    />
+    <>
+      <PricingHero />
+      <Engagements />
+      <InEveryPhase />
+      <HowPricingWorks />
+      <PricingFaq />
+      <PricingCta />
+    </>
   );
 }

@@ -1,13 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
 import localFont from "next/font/local";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-// Both fonts are self-hosted (no request to Google at build or page load).
-const geist = GeistSans; // exposes --font-geist-sans
+// Both fonts are self-hosted copies of the Google Fonts files the design used
+// (via Fontsource), so text measures exactly as in the design. No request to Google.
+const geist = localFont({
+  src: "../fonts/Geist-latin-variable.woff2",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+  display: "swap",
+});
 
 const jakarta = localFont({
   src: "../fonts/PlusJakartaSans-latin-variable.woff2",

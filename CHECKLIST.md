@@ -27,14 +27,18 @@ Tick items off (`[x]`) as they're done.
 
 ### Services page (`src/components/services/services-sections.tsx`)
 - [ ] **Typical first-phase timelines** per service (design defaults: 4–6, 4–6, 3–5, 2–4, 2–3, 4–6 weeks). Once confirmed, remove the "[Adjust to your real delivery times.]" note.
-- [ ] **Support after launch**: confirm the number of days of fixes included (shows `[30]`).
+- [ ] **Support after launch**: confirm the number of days of fixes included (shows `[30]`). One setting, `supportDays` in `src/lib/content.ts`, used on Services and Pricing.
 
 ### Work + case-study pages (`src/lib/projects.ts`)
 - [ ] For each project, the **case-study page** content: year, timeline, the problem (2–3 sentences), what you built (3 points), results (3 numbers with labels), tech stack, optional client quote and live link.
 - [ ] Give each project a real **slug** (its URL, e.g. `/work/lekki-salon-bookings`) and set **`draft: false`** once it's real. Drafts can be previewed but are hidden from Google and the sitemap.
 
+### Pricing page (`src/components/pricing/pricing-sections.tsx`)
+- [ ] **Starting prices** for MVP Sprint, Product Build (per phase) and Ongoing Partner (per month); all show `₦ [—]`. The hero's sample quote card also shows `₦ [—]`.
+- [ ] **Proposal turnaround**: "usually within `[3]` days".
+- [ ] **Pricing FAQ answers**: 5 answers, all placeholders.
+
 ### Other pages
-- [ ] Pricing figures (design shows `₦ [—]`)
 - [ ] Privacy policy and Terms text (`/privacy` and `/terms` exist as placeholders, hidden from Google)
 
 ---
@@ -54,10 +58,10 @@ Tick items off (`[x]`) as they're done.
 
 | Item | Why it's deferred | Unblocked by |
 |---|---|---|
-| FAQ structured data (Google rich results) | Would publish the placeholder answers to Google | FAQ answers |
+| FAQ structured data (Google rich results), Home and Pricing | Would publish the placeholder answers to Google | FAQ answers |
 | Social share image (Open Graph) | Should use final copy and brand; easy to add once pages settle | Before launch |
 | Review/rating structured data | Needs real testimonials | Testimonials |
-| Section links in the nav (`/pricing#faq`, `/#testimonials` from other pages) | Target sections don't exist until those pages are built; links land on the page top. `/about#team`, `/about#how-we-work` and all `/services#…` links now work | Building each page |
+| Section links in the nav | All work now (`/about#…`, `/services#…`, `/pricing#faq`, `/#testimonials`) except Resources' "Insights", which waits on that page | Resources page |
 | Service "Explore →" links go to Contact without saying which service | The design links every row to Contact. Once the contact form exists, each row can pre-select its service | Contact form |
 | Insights cards link to `/resources`, not real articles | No articles yet | Articles |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
@@ -74,9 +78,9 @@ Tick items off (`[x]`) as they're done.
 | Services | ✅ Built to design. Content placeholders above |
 | Work | ✅ Built to design. Content via projects list |
 | Case-study pages (`/work/<slug>`) | ✅ Built (no design; uses the site's own components). Content via projects list |
-| Pricing | ⬜ Next |
+| Pricing | ✅ Built to design. Content placeholders above |
 | About | ✅ Built to design. Content placeholders above |
-| Resources | ⬜ |
+| Resources | ⬜ Next |
 | Contact | ⬜ |
 | Launch: domain, Vercel, final SEO pass | ⬜ |
 
@@ -97,4 +101,7 @@ Tick items off (`[x]`) as they're done.
 - Work hero: the text column is wider than on other pages (680px vs 520px basis) so "Products that had to" fits on one line; the illustration column narrows to fit.
 - Case-study pages have no design. They're built from the site's existing pieces (hero, facts row, the project's card image at full width, problem / what we built, dark results band, stack, quote, next case study, the Work CTA). Draft projects get `noindex`; real ones also publish CreativeWork structured data.
 - Unknown `/work/...` URLs return a real 404 with the site's 404 page.
+- **Type metrics match the design exactly.** Both fonts are the Google Fonts files the design uses (self-hosted via Fontsource), and line heights follow the design's browser default instead of Tailwind's built-in 1.5 and per-size values. Measured with real fonts on both sides, every desktop section on Home, About, Services and Pricing is within 2px of the design.
+- **Phones: stacked instead of squeezed.** In several places the design's phone layout squeezes 3–5 columns into a 390px screen (Home stats and phases, About values, Pricing "In every phase" and "How pricing works"), leaving one word per line. Its phone rules never take effect. The build stacks those into readable rows, which is what the rules intended.
+- Home and Pricing FAQs share one component; Pricing FAQ has the `#faq` anchor the nav and Home link to.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

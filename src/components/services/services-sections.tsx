@@ -271,7 +271,7 @@ export function CoreServices() {
           {coreServices.map((s) => (
             <li key={s.id} id={s.id} className="scroll-mt-20 tab:scroll-mt-4">
               <Link
-                href="/contact"
+                href={`/contact?service=${s.id}`}
                 className="row flex flex-wrap items-center gap-x-7 gap-y-4 border-b border-ink/12 py-[30px] hover:text-ink"
               >
                 <span

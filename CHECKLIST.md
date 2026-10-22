@@ -11,7 +11,9 @@ Tick items off (`[x]`) as they're done.
 
 ### Brand and contact (`src/lib/site.ts`)
 - [ ] Real email address (currently `hello@solveon.com`, a placeholder)
-- [ ] WhatsApp number (empty; the design shows one on Contact)
+- [ ] **WhatsApp number** (`whatsapp`, digits only, e.g. `2348012345678`). Contact shows `[+234 000 000 0000]` until set; then the tile opens a WhatsApp chat.
+- [ ] **Booking link** (`calendarUrl`, e.g. Cal.com or Calendly). Contact shows `[calendar link]` until set.
+- [ ] **Reply time** (`replyTime`), shown on Contact: `[one working day]`.
 - [ ] **Founders** (`src/lib/content.ts`, one list used on Home and About): names, initials, roles, short bios, photos. Photos go in `public/team/` (portrait, at least 800px tall); the placeholder boxes switch to the photo automatically.
 
 ### Home page (`src/components/home/`)
@@ -41,6 +43,10 @@ Tick items off (`[x]`) as they're done.
 ### Resources page (`src/lib/articles.ts`, one list for Resources and Home)
 - [ ] **Articles**: 1 featured (title, summary, date, read time, two-line cover text; the design's is "Build vs / buy.") and 6 more (title, summary, category, date). Categories: Cost & planning, Product, Engineering, Case notes.
 
+### Contact page
+- [ ] **Budget ranges** for the form dropdown (`src/lib/contact.ts`): `[Range 1]`, `[Range 2]`, `[Range 3]`.
+- [ ] **Contact FAQ answers** (`src/components/contact/contact-sections.tsx`): 3 answers.
+
 ### Other pages
 - [ ] Privacy policy and Terms text (`/privacy` and `/terms` exist as placeholders, hidden from Google)
 
@@ -54,7 +60,8 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Article pages (`/resources/<slug>`).** Not in the design; cards link to Resources for now. My recommendation: write articles as **MDX files in the repo** (`content/insights/*.mdx`), which is free, fast, versioned in GitHub, with a `draft` flag like case studies. If your partner (non-developer) will write them, a **headless CMS** (e.g. Sanity, free tier) is friendlier. Your call on who writes, then I'll build it.
 - [ ] **Production domain.** Needed for canonical links, the sitemap and social previews. Set `NEXT_PUBLIC_SITE_URL` in Vercel once decided. Until then the code assumes `https://solveon.vercel.app`.
 - [ ] **Hosting.** Vercel (like your portfolio) is the natural fit. Connecting the repo is a one-time step in your Vercel account.
-- [ ] **Contact form destination.** Where should enquiries go: email, WhatsApp, a Google Sheet, a CRM? Decides how I build the Contact form.
+- [ ] **Contact form destination. ⚠ Launch blocker.** The form is built and validated, but enquiries aren't delivered anywhere yet; it tells visitors to email you instead. Options: **email to your inbox via Resend** (free up to 3,000/month, my recommendation), plus optionally a **Google Sheet** row per enquiry for tracking, or a CRM if you use one. Pick and I'll connect it (`src/app/api/contact/route.ts`).
+- [ ] **Booking tool** for "book a call": Cal.com (free, open source) or Calendly. Just send the link.
 - [ ] **Placeholder sections at launch.** If testimonials/case studies aren't ready, hide those sections or launch with them? (Recommend hiding: placeholder text looks unfinished to visitors.)
 
 ---
@@ -66,7 +73,6 @@ Tick items off (`[x]`) as they're done.
 | FAQ structured data (Google rich results), Home and Pricing | Would publish the placeholder answers to Google | FAQ answers |
 | Social share image (Open Graph) | Should use final copy and brand; easy to add once pages settle | Before launch |
 | Review/rating structured data | Needs real testimonials | Testimonials |
-| Service "Explore →" links go to Contact without saying which service | The design links every row to Contact. Once the contact form exists, each row can pre-select its service | Contact form |
 | Article cards (Resources + Home) link to `/resources`, not to individual articles | No article pages yet | Your decision on article pages |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
 
@@ -85,7 +91,7 @@ Tick items off (`[x]`) as they're done.
 | Pricing | ✅ Built to design. Content placeholders above |
 | About | ✅ Built to design. Content placeholders above |
 | Resources | ✅ Built to design. Content via articles list |
-| Contact | ⬜ Next |
+| Contact | ✅ Built to design. Form works; delivery waits on your decision |
 | Launch: domain, Vercel, final SEO pass | ⬜ |
 
 ## Design notes (kept for reference)
@@ -111,4 +117,6 @@ Tick items off (`[x]`) as they're done.
 - Resources filters and "Load more" work (the design drew them as static buttons). Filtering also applies to the featured article. "Load more" only appears when there are more than 6 articles in the current filter, so with today's 6 placeholders it's hidden.
 - Resources hero "Pricing FAQ" button goes straight to `/pricing#faq`.
 - Newsletter form: real email validation, a status message under the form (positioned so it doesn't shift the layout), and an honest "not open yet" reply until a provider is connected.
+- Contact form: the design's fields, service buttons and dropdowns were static. The build validates required fields and email, lets you pick several services, has a hidden spam trap, and shows field-level errors and a status message. Services rows link to `/contact?service=…`, which pre-selects that service.
+- Contact on phones: the design keeps the form fields and contact tiles two-across, which cuts off placeholders ("you@compan…"). The build stacks them full width.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

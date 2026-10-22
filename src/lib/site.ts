@@ -10,7 +10,12 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://solveon.vercel.app",
   // TODO: real contact details.
   email: "hello@solveon.com",
-  whatsapp: "",
+  /** WhatsApp number in international format, digits only, e.g. "2348012345678". Empty = placeholder shown. */
+  whatsapp: "" as string,
+  /** Booking link (e.g. Calendly or Cal.com). Empty = placeholder shown. */
+  calendarUrl: "" as string,
+  /** How fast you reply to enquiries, shown on Contact. */
+  replyTime: "[one working day]",
   location: "Lagos, Nigeria",
   locationLong: "Lagos, Nigeria · Working with clients anywhere",
 } as const;
@@ -98,3 +103,9 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
 
 // Pages listed in the sitemap.
 export const pages = ["", "/services", "/work", "/pricing", "/about", "/resources", "/contact"];
+
+/** Display version of the WhatsApp number, e.g. "+234 801 234 5678". */
+export const whatsappDisplay = site.whatsapp
+  ? `+${site.whatsapp.replace(/^(\d{3})(\d{3})(\d{3})(\d+)$/, "$1 $2 $3 $4")}`
+  : "[+234 000 000 0000]";
+export const whatsappUrl = site.whatsapp ? `https://wa.me/${site.whatsapp}` : "";

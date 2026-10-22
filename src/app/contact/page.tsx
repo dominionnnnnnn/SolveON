@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PageStub } from "@/components/page-stub";
+import { ContactFaq, ContactMain } from "@/components/contact/contact-sections";
 
 const description =
-  "You don't need a finished spec, a budget spreadsheet or technical words. A few lines about the problem is enough to start.";
+  "Tell us what you're building. You don't need a finished spec or technical words: a few lines about the problem is enough to start. Free 30-minute discovery call.";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,18 +11,11 @@ export const metadata: Metadata = {
   openGraph: { title: "Contact", description, url: "/contact" },
 };
 
-export default function Page() {
+export default function ContactPage() {
   return (
-    <PageStub
-      label="Contact"
-      title={
-        <>
-          Tell us what
-          <br />
-          you&apos;re <span className="mk">building.</span>
-        </>
-      }
-      lead={description}
-    />
+    <>
+      <ContactMain />
+      <ContactFaq />
+    </>
   );
 }

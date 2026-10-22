@@ -148,14 +148,14 @@ export function Team() {
           <br />
           <span className="mk">actually work with.</span>
         </h2>
-        <div className="mt-14 grid grid-cols-1 gap-5 phone:grid-cols-2 tab:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-5 phone:grid-cols-2">
           {founders.map((f, i) => (
             <article key={f.name} className="rounded-[18px] bg-white p-[18px]">
               <FounderPhoto
                 founder={f}
                 tone={i === 0 ? "dark" : "light"}
                 className="h-[300px] rounded-xl text-sm"
-                sizes="(min-width: 961px) 360px, (min-width: 641px) 50vw, 100vw"
+                sizes="(min-width: 1200px) 560px, (min-width: 641px) 50vw, 100vw"
               />
               <div className="px-1.5 pb-2 pt-[18px]">
                 <h3 className="text-xl font-semibold">{f.name}</h3>
@@ -164,19 +164,6 @@ export function Team() {
               </div>
             </article>
           ))}
-          <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[18px] border border-dashed border-ink/30 p-[18px] text-center tab:min-h-[440px]">
-            <span
-              aria-hidden="true"
-              className="flex h-14 w-14 items-center justify-center rounded-full border border-ink text-[26px] font-light"
-            >
-              +
-            </span>
-            <h3 className="mt-[18px] text-lg font-semibold">Specialists on demand</h3>
-            {/* TODO: confirm this line */}
-            <p className="muted mt-2 max-w-[240px] text-sm leading-[1.6]">
-              [Designers, QA or DevOps we bring in when a project needs them.]
-            </p>
-          </div>
         </div>
       </div>
     </section>

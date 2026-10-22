@@ -263,6 +263,14 @@
   color: inherit;
 }
 
+/* Services page: list rows nudge their arrow on hover */
+.rowgo {
+  transition: transform 0.2s;
+}
+.row:hover .rowgo {
+  transform: translateX(4px);
+}
+
 /* Services panels */
 .svc-mq {
   display: flex;

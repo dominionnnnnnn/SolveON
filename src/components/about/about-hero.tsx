@@ -8,7 +8,7 @@ export function AboutHero() {
   return (
     <section className="relative overflow-hidden">
       <div className="gridbg gridbg-down absolute inset-0" aria-hidden="true" />
-      <div className="wrap relative flex flex-wrap items-center gap-12 pb-16 pt-12 phone:pb-24 phone:pt-20">
+      <div className="wrap relative flex flex-wrap items-center gap-12 pb-24 pt-20">
         <div className="min-w-0 flex-[1_1_100%] phone:flex-[1_1_520px]">
           <span className="eb">About</span>
           <h1 className="disp h1-page mt-[22px] max-phone:text-[42px]">

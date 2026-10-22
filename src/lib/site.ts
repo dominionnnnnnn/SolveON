@@ -2,10 +2,10 @@
 // Anything marked TODO is still a placeholder from the design.
 
 export const site = {
-  name: "Solveon",
+  name: "SolveON",
   tagline: "Product, design, engineering and launch support from one small team.",
   description:
-    "Solveon scopes, designs, builds and hands over software for businesses: web apps, mobile apps, backends, AI automation and websites, delivered in focused 4–6 week phases.",
+    "SolveON scopes, designs, builds and hands over software for businesses: web apps, mobile apps, backends, AI automation and websites, delivered in focused 4–6 week phases.",
   // TODO: replace with the production domain once it's set up.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://solveon.vercel.app",
   // TODO: real contact details.

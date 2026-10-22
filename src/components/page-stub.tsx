@@ -2,7 +2,15 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 /** Page hero used until each page is built out from the design. */
-export function PageStub({ label, title, lead }: { label: string; title: ReactNode; lead: string }) {
+export function PageStub({
+  label,
+  title,
+  lead,
+}: {
+  label: string;
+  title: ReactNode;
+  lead: string;
+}) {
   return (
     <section className="relative overflow-hidden">
       <div className="gridbg absolute inset-0" aria-hidden="true" />

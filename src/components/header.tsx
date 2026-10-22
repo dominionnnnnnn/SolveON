@@ -54,11 +54,7 @@ export function Header() {
   return (
     <>
       <header className="wrap sticky w-full top-0 z-[60] flex h-16 items-center justify-between gap-6 bg-white tab:static tab:h-[76px]">
-        <Link
-          href="/"
-          aria-label={`${site.name} home`}
-          className="flex shrink-0 items-center"
-        >
+        <Link href="/" aria-label={`${site.name} home`} className="flex shrink-0 items-center">
           <Logo priority />
         </Link>
 
@@ -171,7 +167,11 @@ export function Header() {
           )}
         </nav>
         <div className="mt-auto flex flex-col gap-3 pt-7">
-          <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-g h-[52px] text-[15px]">
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="btn btn-g h-[52px] text-[15px]"
+          >
             Book a call
           </Link>
           <Link href="/work" onClick={() => setOpen(false)} className="btn h-[52px] text-[15px]">

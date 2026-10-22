@@ -244,6 +244,131 @@
   animation: mq 46s linear infinite reverse;
 }
 
+/* ---------- Home ---------- */
+
+/* Work cards: visual lifts on hover */
+.wmedia {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.wcard:hover .wmedia {
+  transform: translateY(-4px);
+}
+.wcard:hover {
+  color: inherit;
+}
+
+/* Services panels */
+.svc-mq {
+  display: flex;
+  flex: none;
+  animation: mq 28s linear infinite;
+}
+.svc-mq-r {
+  display: flex;
+  flex: none;
+  animation: mq 34s linear infinite reverse;
+}
+.svc-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 66px;
+  margin-right: 14px;
+  padding: 0 26px;
+  box-sizing: border-box;
+  border: 3px solid #111;
+  border-radius: 18px;
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.svc-tag-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 3px solid;
+}
+.svc-open:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+/* Below 960px the header is sticky (64px), so the pinned panel sits under it */
+@media (max-width: 960px) {
+  .svc-sticky {
+    top: 64px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Hero mockups scale down as a whole */
+  .hv-main {
+    zoom: 0.42;
+  }
+  .hv-wrap {
+    margin-top: 44px !important;
+  }
+
+  /* Work card visuals: keep the decoration from crowding the caption */
+  .wmedia {
+    height: 300px !important;
+  }
+
+  .svc-vp {
+    height: 440px !important;
+  }
+  .svc-track {
+    gap: 8px !important;
+  }
+  .svc-card {
+    border-width: 2px !important;
+    border-radius: 24px !important;
+  }
+  .svc-ico {
+    top: 16px !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+  .svc-ico svg {
+    width: 20px;
+    height: 20px;
+  }
+  .svc-body {
+    top: 72px !important;
+    left: 22px !important;
+    right: 22px !important;
+  }
+  .svc-body h3 {
+    font-size: 30px !important;
+    white-space: normal !important;
+  }
+  .svc-body p {
+    font-size: 15px !important;
+    margin-top: 10px !important;
+  }
+  .svc-body a {
+    height: 42px !important;
+    font-size: 14px !important;
+    margin-top: 16px !important;
+  }
+  .svc-chips {
+    bottom: 18px !important;
+    gap: 8px !important;
+  }
+  .svc-tag {
+    height: 42px;
+    padding: 0 14px;
+    margin-right: 8px;
+    border-width: 2px;
+    border-radius: 12px;
+    font-size: 14px;
+    gap: 8px;
+  }
+  .svc-vt {
+    font-size: 22px !important;
+    bottom: 16px !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -253,7 +378,9 @@
   .fl3,
   .pulse,
   .mq,
-  .mq-r {
+  .mq-r,
+  .svc-mq,
+  .svc-mq-r {
     animation: none;
   }
 }

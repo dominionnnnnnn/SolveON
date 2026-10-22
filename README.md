@@ -40,6 +40,8 @@ npx prettier --write .   # format
 
 ## Status
 
+See [`CHECKLIST.md`](CHECKLIST.md) for everything still open: content needed, decisions, and deferred items.
+
 - [x] Foundation: tokens, fonts, assets, header, mobile menu, footer, SEO basics, all routes
 - [x] Home (full design)
 - [ ] Services, Work, Pricing, About, Resources, Contact

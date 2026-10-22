@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageStub } from "@/components/page-stub";
 
 const description =
-  "SolveON is a small Lagos-based software team. We take what people need, turn it into working software, and stay accountable for it after launch.";
+  "Solveon is a small Lagos-based software team. We take what people need, turn it into working software, and stay accountable for it after launch.";
 
 export const metadata: Metadata = {
   title: "About",

@@ -1,6 +1,6 @@
-# SolveON website
+# Solveon website
 
-Marketing site for SolveON, built with **Next.js 16 (App Router)**, **Tailwind CSS v4** and **TypeScript**. Every page is prerendered as static HTML for speed and SEO.
+Marketing site for Solveon, built with **Next.js 16 (App Router)**, **Tailwind CSS v4** and **TypeScript**. Every page is prerendered as static HTML for speed and SEO.
 
 ## Run it
 
@@ -17,11 +17,11 @@ npm run lint
 | --- | --- |
 | `src/lib/site.ts` | Brand name, contact details, site URL and all navigation. Change details here, not in components. |
 | `src/app/globals.css` | Brand tokens (`@theme`) and the core design classes from the handoff: `.wrap`, `.disp`, `.mk`, `.eb`, `.btn`, `.tint`, `.dark`, `.gridbg`, `.section` |
-| `src/components/` | Shared UI: `header.tsx` (desktop dropdowns + mobile menu), `footer.tsx`, `logo.tsx` |
+| `src/components/` | Shared UI: `header.tsx` (desktop dropdowns + mobile menu), `footer.tsx`, `logo.tsx` (wordmark, light/dark) |
 | `src/app/<page>/page.tsx` | One folder per page, each with its own SEO metadata |
 | `src/app/sitemap.ts`, `robots.ts` | Generated `sitemap.xml` and `robots.txt` |
 | `src/fonts/` | Self-hosted Plus Jakarta Sans (Geist comes from the `geist` package) |
-| `public/` | Design assets: `brand/`, `icons/`, `illustrations/`, `tech/` |
+| `public/` | Assets: `brand/` (logo + icon), `icons/`, `illustrations/`, `tech/`. Favicons live in `src/app/` (`favicon.ico`, `icon.svg`, `apple-icon.png`) |
 
 ## Design system
 
@@ -41,4 +41,5 @@ npm run lint
 - [x] Foundation: tokens, fonts, assets, header, mobile menu, footer, SEO basics, all routes
 - [ ] Home (full design)
 - [ ] Services, Work, Pricing, About, Resources, Contact
-- [ ] Real logo, contact details, team photos, projects and prices
+- [x] Real logo and favicons
+- [ ] Real contact details, team photos, projects and prices

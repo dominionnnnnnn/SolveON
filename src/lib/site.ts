@@ -2,12 +2,10 @@
 // Anything marked TODO is still a placeholder from the design.
 
 export const site = {
-  name: "SolveON",
-  // The wordmark is set in two weights: light then heavy.
-  wordmark: { light: "Solve", heavy: "ON" },
+  name: "Solveon",
   tagline: "Product, design, engineering and launch support from one small team.",
   description:
-    "SolveON scopes, designs, builds and hands over software for businesses: web apps, mobile apps, backends, AI automation and websites, delivered in focused 4–6 week phases.",
+    "Solveon scopes, designs, builds and hands over software for businesses: web apps, mobile apps, backends, AI automation and websites, delivered in focused 4–6 week phases.",
   // TODO: replace with the production domain once it's set up.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://solveon.vercel.app",
   // TODO: real contact details.

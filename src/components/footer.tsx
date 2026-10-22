@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoMark, Wordmark } from "@/components/logo";
+import { Logo } from "@/components/logo";
 import { footerNav, site } from "@/lib/site";
 
 // Year is computed at build time and refreshed on each deploy.
@@ -14,10 +14,7 @@ export function Footer() {
       <div className="wrap pb-9 pt-20">
         <div className="flex flex-wrap justify-between gap-14">
           <div className="max-w-[300px]">
-            <div className="flex items-center gap-3 font-display text-[30px] tracking-[-0.03em]">
-              <LogoMark variant="green" size={38} />
-              <Wordmark lightWeight={300} />
-            </div>
+            <Logo variant="dark" height={36} />
             <p className="mt-4 text-[15px] leading-relaxed text-muted-dark">{site.tagline}</p>
             <Link href="/contact" className="btn btn-g mt-[22px] w-full">
               Book a call

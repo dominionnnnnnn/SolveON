@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LogoMark, Wordmark } from "@/components/logo";
+import { Logo } from "@/components/logo";
 import { mainNav, site } from "@/lib/site";
 
 function Chevron({ size = 12, className = "" }: { size?: number; className?: string }) {
@@ -57,10 +57,9 @@ export function Header() {
         <Link
           href="/"
           aria-label={`${site.name} home`}
-          className="flex items-center gap-2.5 font-display text-[17px] tracking-[-0.02em] hover:text-ink"
+          className="flex shrink-0 items-center"
         >
-          <LogoMark />
-          <Wordmark />
+          <Logo priority />
         </Link>
 
         {/* Desktop nav */}

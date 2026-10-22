@@ -12,7 +12,7 @@ Tick items off (`[x]`) as they're done.
 ### Brand and contact (`src/lib/site.ts`)
 - [ ] Real email address (currently `hello@solveon.com`, a placeholder)
 - [ ] WhatsApp number (empty; the design shows one on Contact)
-- [ ] Founder names, roles and photos (Home shows `[A]` / `[B]`; About has a team section)
+- [ ] **Founders** (`src/lib/content.ts`, one list used on Home and About): names, initials, roles, short bios, photos. Photos go in `public/team/` (portrait, at least 800px tall); the placeholder boxes switch to the photo automatically.
 
 ### Home page (`src/components/home/`)
 - [ ] **Stats** (`stats.tsx`): "Products shipped" and "Clients served" show `[00]`. Real numbers, or tell me to remove those two.
@@ -20,6 +20,11 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Testimonials** (`testimonials.tsx`): 4 quotes, each with name, role and company.
 - [ ] **FAQ answers** (`faq.tsx`): 6 answers, all placeholders.
 - [ ] **Insights articles** (`insights.tsx`): 3 article cards (title, date, summary). Can wait until Resources has real articles.
+
+### About page (`src/components/about/about-sections.tsx`)
+- [ ] **Founding story**: two short paragraphs (why you started; how you work differently).
+- [ ] **"Specialists on demand"** line: confirm or rewrite "[Designers, QA or DevOps we bring in when a project needs them.]"
+- [ ] Check the local-skills tags are true for you: Paystack & Flutterwave, WhatsApp Business API, offline-friendly apps.
 
 ### Other pages
 - [ ] Pricing figures (design shows `₦ [—]`)
@@ -43,7 +48,7 @@ Tick items off (`[x]`) as they're done.
 | FAQ structured data (Google rich results) | Would publish the placeholder answers to Google | FAQ answers |
 | Social share image (Open Graph) | Should use final copy and brand; easy to add once pages settle | Before launch |
 | Review/rating structured data | Needs real testimonials | Testimonials |
-| Section links in the nav (e.g. `/services#web-apps`, `/about#team`, `/pricing#faq`) | The target sections don't exist until those pages are built; links currently land on the page top | Building each page |
+| Section links in the nav (`/services#web-apps`, `/pricing#faq`, …) | Target sections don't exist until those pages are built; links land on the page top. `/about#team` and `/about#how-we-work` now work | Building each page |
 | Insights cards link to `/resources`, not real articles | No articles yet | Articles |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
 
@@ -59,7 +64,7 @@ Tick items off (`[x]`) as they're done.
 | Services | ⬜ Next |
 | Work | ⬜ |
 | Pricing | ⬜ |
-| About | ⬜ |
+| About | ✅ Built to design. Content placeholders above |
 | Resources | ⬜ |
 | Contact | ⬜ |
 | Launch: domain, Vercel, final SEO pass | ⬜ |
@@ -69,4 +74,6 @@ Tick items off (`[x]`) as they're done.
 - The headline on Home has an explicit line break after "around" on tablet and desktop. The self-hosted font renders slightly narrower than the design tool's, so a natural wrap would put "what" on line one.
 - The design's ≤960px rule pinned the services panel at `top: 0` under a sticky 64px header. The build uses `top: 64px` there so the header doesn't cover it.
 - The design turned off the services scroll animation on windows 1400px+ tall. That also caught zoomed-out browsers and large monitors, so the effect silently disappeared. The build pins whenever the panel fits on screen and only falls back to tap-to-open on very short windows (phone held sideways).
+- About hero: in the design, the float animation overrides the cards' tilt, so they display straight. The build matches that (straight cards, still floating).
+- Inner pages fade the hero grid straight down (`.gridbg-down`); Home keeps its radial fade, as in the design.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

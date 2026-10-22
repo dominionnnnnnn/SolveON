@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { PageStub } from "@/components/page-stub";
+import { AboutHero } from "@/components/about/about-hero";
+import { HowWeWork, Story, Team, Values } from "@/components/about/about-sections";
+import { site } from "@/lib/site";
 
-const description =
-  "SolveON is a small Lagos-based software team. We take what people need, turn it into working software, and stay accountable for it after launch.";
+const description = `${site.name} is a small Lagos-based software team. We take what people need, turn it into working software, and stay accountable for it after launch.`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,18 +12,14 @@ export const metadata: Metadata = {
   openGraph: { title: "About", description, url: "/about" },
 };
 
-export default function Page() {
+export default function AboutPage() {
   return (
-    <PageStub
-      label="About"
-      title={
-        <>
-          Two builders.
-          <br />
-          <span className="mk">One standard.</span>
-        </>
-      }
-      lead={description}
-    />
+    <>
+      <AboutHero />
+      <Story />
+      <Values />
+      <Team />
+      <HowWeWork />
+    </>
   );
 }

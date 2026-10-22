@@ -20,7 +20,8 @@ npx prettier --write .   # format
 | `src/app/globals.css` | Brand tokens (`@theme`) and the core design classes from the handoff: `.wrap`, `.disp`, `.mk`, `.eb`, `.btn`, `.tint`, `.dark`, `.gridbg`, `.section` |
 | `src/components/` | Shared UI: `header.tsx` (desktop dropdowns + mobile menu), `footer.tsx`, `logo.tsx` (wordmark, light/dark) |
 | `src/app/<page>/page.tsx` | One folder per page, each with its own SEO metadata |
-| `src/components/home/` | One file per Home section. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
+| `src/lib/content.ts` | Content shared across pages: founders, the five phases |
+| `src/components/home/`, `src/components/about/` | Page sections. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
 | `src/app/sitemap.ts`, `robots.ts` | Generated `sitemap.xml` and `robots.txt` |
 | `src/fonts/` | Self-hosted Plus Jakarta Sans (Geist comes from the `geist` package) |
 | `public/` | Assets: `brand/` (logo + icon), `icons/`, `illustrations/`, `tech/`. Favicons live in `src/app/` (`favicon.ico`, `icon.svg`, `apple-icon.png`) |
@@ -44,6 +45,7 @@ See [`CHECKLIST.md`](CHECKLIST.md) for everything still open: content needed, de
 
 - [x] Foundation: tokens, fonts, assets, header, mobile menu, footer, SEO basics, all routes
 - [x] Home (full design)
-- [ ] Services, Work, Pricing, About, Resources, Contact
+- [x] About
+- [ ] Services, Work, Pricing, Resources, Contact
 - [x] Real logo and favicons
 - [ ] Real contact details, team photos, projects and prices

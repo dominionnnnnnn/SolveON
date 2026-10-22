@@ -1,3 +1,5 @@
+import { founders } from "@/lib/content";
+
 const board = [
   { title: "Scope", cards: 3 },
   { title: "Design", cards: 2 },
@@ -42,14 +44,17 @@ export function Ownership() {
             className="absolute inset-0 bg-[radial-gradient(520px_260px_at_50%_55%,rgba(11,11,11,.92),rgba(11,11,11,.35)_70%,transparent)]"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-[22px] text-center">
-            {/* TODO: founder initials or photos */}
             <div className="flex" aria-hidden="true">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full border-[3px] border-[#141414] bg-green text-sm font-bold text-ink">
-                [A]
-              </span>
-              <span className="-ml-2.5 flex h-11 w-11 items-center justify-center rounded-full border-[3px] border-[#141414] bg-white text-sm font-bold text-ink">
-                [B]
-              </span>
+              {founders.map((f, i) => (
+                <span
+                  key={f.name}
+                  className={`flex h-11 w-11 items-center justify-center rounded-full border-[3px] border-[#141414] text-sm font-bold text-ink ${
+                    i === 0 ? "bg-green" : "-ml-2.5 bg-white"
+                  }`}
+                >
+                  {f.initial}
+                </span>
+              ))}
             </div>
             <p className="disp text-[clamp(36px,4.6vw,60px)] font-extrabold leading-[1.02]">
               Named owners.

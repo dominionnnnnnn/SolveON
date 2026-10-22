@@ -13,7 +13,7 @@ export function PageStub({
 }) {
   return (
     <section className="relative overflow-hidden">
-      <div className="gridbg absolute inset-0" aria-hidden="true" />
+      <div className="gridbg gridbg-down absolute inset-0" aria-hidden="true" />
       <div className="wrap section relative text-center">
         <span className="eb">{label}</span>
         <h1 className="disp h1-page mx-auto mt-6 max-w-[900px]">{title}</h1>

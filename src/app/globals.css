@@ -325,9 +325,14 @@
     margin-top: 44px !important;
   }
 
-  /* Work card visuals: keep the decoration from crowding the caption */
+  /* Work cards: shorter, and the illustration shrinks into the bottom-right
+     corner, clear of the tagline and label (the design overlapped here) */
   .wmedia {
     height: 300px !important;
+  }
+  .wvis {
+    transform: scale(0.62);
+    transform-origin: right bottom;
   }
 
   .svc-vp {

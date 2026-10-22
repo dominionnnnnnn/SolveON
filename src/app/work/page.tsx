@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PageStub } from "@/components/page-stub";
+import { WorkGrid } from "@/components/work/work-grid";
+import { WorkCta, WorkHero } from "@/components/work/work-sections";
 
 const description =
   "A look at what we have designed, built and handed over: the problem, what we shipped and what changed after launch.";
@@ -11,18 +12,12 @@ export const metadata: Metadata = {
   openGraph: { title: "Work", description, url: "/work" },
 };
 
-export default function Page() {
+export default function WorkPage() {
   return (
-    <PageStub
-      label="Work"
-      title={
-        <>
-          Products that had to
-          <br />
-          work <span className="mk">for real users.</span>
-        </>
-      }
-      lead={description}
-    />
+    <>
+      <WorkHero />
+      <WorkGrid />
+      <WorkCta />
+    </>
   );
 }

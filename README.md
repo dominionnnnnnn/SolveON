@@ -21,7 +21,8 @@ npx prettier --write .   # format
 | `src/components/` | Shared UI: `header.tsx` (desktop dropdowns + mobile menu), `footer.tsx`, `logo.tsx` (wordmark, light/dark) |
 | `src/app/<page>/page.tsx` | One folder per page, each with its own SEO metadata |
 | `src/lib/content.ts` | Content shared across pages: founders, the five phases |
-| `src/components/home/`, `about/`, `services/` | Page sections. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
+| `src/lib/projects.ts` | Case studies for Home (first four) and Work (all), with filter categories |
+| `src/components/home/`, `about/`, `services/`, `work/` | Page sections. Placeholder content (stats, testimonials, FAQ answers, articles) is in plain arrays at the top of each file, marked `TODO` |
 | `src/app/sitemap.ts`, `robots.ts` | Generated `sitemap.xml` and `robots.txt` |
 | `src/fonts/` | Self-hosted Plus Jakarta Sans (Geist comes from the `geist` package) |
 | `public/` | Assets: `brand/` (logo + icon), `icons/`, `illustrations/`, `tech/`. Favicons live in `src/app/` (`favicon.ico`, `icon.svg`, `apple-icon.png`) |
@@ -47,6 +48,7 @@ See [`CHECKLIST.md`](CHECKLIST.md) for everything still open: content needed, de
 - [x] Home (full design)
 - [x] About
 - [x] Services
-- [ ] Work, Pricing, Resources, Contact
+- [x] Work
+- [ ] Pricing, Resources, Contact
 - [x] Real logo and favicons
 - [ ] Real contact details, team photos, projects and prices

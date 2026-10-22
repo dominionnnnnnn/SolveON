@@ -16,7 +16,7 @@ Tick items off (`[x]`) as they're done.
 
 ### Home page (`src/components/home/`)
 - [ ] **Stats** (`stats.tsx`): "Products shipped" and "Clients served" show `[00]`. Real numbers, or tell me to remove those two.
-- [ ] **Case studies** (`work-cards.tsx`): 4 cards with `[Project name]`, `[Client logo]`, one-line summary, two-line description. Real screenshots would replace the drawn mockups.
+- [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): 6 projects, each with name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters. Real screenshots can replace the drawn illustrations later.
 - [ ] **Testimonials** (`testimonials.tsx`): 4 quotes, each with name, role and company.
 - [ ] **FAQ answers** (`faq.tsx`): 6 answers, all placeholders.
 - [ ] **Insights articles** (`insights.tsx`): 3 article cards (title, date, summary). Can wait until Resources has real articles.
@@ -29,6 +29,9 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Typical first-phase timelines** per service (design defaults: 4–6, 4–6, 3–5, 2–4, 2–3, 4–6 weeks). Once confirmed, remove the "[Adjust to your real delivery times.]" note.
 - [ ] **Support after launch**: confirm the number of days of fixes included (shows `[30]`).
 
+### Work page
+- [ ] Nothing page-specific. It's driven entirely by the projects list above.
+
 ### Other pages
 - [ ] Pricing figures (design shows `₦ [—]`)
 - [ ] Privacy policy and Terms text (`/privacy` and `/terms` exist as placeholders, hidden from Google)
@@ -37,6 +40,8 @@ Tick items off (`[x]`) as they're done.
 
 ## 2. Decisions needed from you 🟡
 
+- [ ] **Work headline wrap.** At laptop widths the design's headline breaks as "Products that had / **to** / work for real / users.", leaving "to" on its own line. The build matches the design. Options: shorten it (e.g. "Products built for real users."), or I force a cleaner break. Your call.
+- [ ] **Case-study pages.** Should each project get its own page (`/work/<slug>`) with the full story? Good for SEO and sales. Until then, cards link to Contact (Work) and Work (Home), as in the design.
 - [ ] **Production domain.** Needed for canonical links, the sitemap and social previews. Set `NEXT_PUBLIC_SITE_URL` in Vercel once decided. Until then the code assumes `https://solveon.vercel.app`.
 - [ ] **Hosting.** Vercel (like your portfolio) is the natural fit. Connecting the repo is a one-time step in your Vercel account.
 - [ ] **Contact form destination.** Where should enquiries go: email, WhatsApp, a Google Sheet, a CRM? Decides how I build the Contact form.
@@ -53,6 +58,7 @@ Tick items off (`[x]`) as they're done.
 | Review/rating structured data | Needs real testimonials | Testimonials |
 | Section links in the nav (`/pricing#faq`, `/#testimonials` from other pages) | Target sections don't exist until those pages are built; links land on the page top. `/about#team`, `/about#how-we-work` and all `/services#…` links now work | Building each page |
 | Service "Explore →" links go to Contact without saying which service | The design links every row to Contact. Once the contact form exists, each row can pre-select its service | Contact form |
+| Individual case-study pages (`/work/<slug>`) | Not in the design; needs real project content | Your decision above + project content |
 | Insights cards link to `/resources`, not real articles | No articles yet | Articles |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
 
@@ -66,8 +72,8 @@ Tick items off (`[x]`) as they're done.
 | Logo + favicons | ✅ Done |
 | Home | ✅ Built to design. Content placeholders above |
 | Services | ✅ Built to design. Content placeholders above |
-| Work | ⬜ Next |
-| Pricing | ⬜ |
+| Work | ✅ Built to design. Content via projects list |
+| Pricing | ⬜ Next |
 | About | ✅ Built to design. Content placeholders above |
 | Resources | ⬜ |
 | Contact | ⬜ |
@@ -84,4 +90,7 @@ Tick items off (`[x]`) as they're done.
 - Services hero: as on About, the float animation overrides the cards' tilt in the design, so they display straight. The build matches that.
 - About and Services heroes keep their full 80px/96px padding on phones, as the design renders (its phone padding rule doesn't reach these heroes).
 - Services page publishes each core service as structured data for search engines (real content, so no placeholder risk).
+- Work filters: the design only drew the buttons; in the build they filter by each project's categories (All 6 · Web 3 · Mobile 1 · Backend 3 · AI & WhatsApp 1 with the current placeholders).
+- Case-study cards on phones: in the design the illustration covers the tagline (and the mobile export overflows sideways). The build shrinks the illustration into the bottom-right corner on phones, on both Home and Work.
+- Home and Work cards share one component and one project list; the illustrations keep each page's exact sizes from the design.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

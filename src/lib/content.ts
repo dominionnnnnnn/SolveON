@@ -61,5 +61,5 @@ export const phases = [
 
 export const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
-// TODO: confirm. Used on Services ("Support after launch") and Pricing.
-export const supportDays = "[30]";
+// Days of free fixes after launch. Used on Services ("Support after launch") and Pricing.
+export const supportDays = "30";

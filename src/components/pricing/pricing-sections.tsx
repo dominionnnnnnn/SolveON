@@ -41,8 +41,8 @@ const inEveryPhase = [
   { title: "Support after launch", desc: `${supportDays} days of fixes included.`, dark: true },
 ];
 
-// TODO: confirm how many days a proposal usually takes.
-const proposalDays = "[3]";
+// How many days a written proposal usually takes.
+const proposalDays = "3";
 
 const steps = [
   {

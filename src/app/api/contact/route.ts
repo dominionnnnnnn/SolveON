@@ -58,12 +58,12 @@ export async function POST(request: Request) {
   if (!delivered) {
     return Response.json(
       {
-        message: `Our form isn't connected yet. Please email us at ${site.email} and we'll reply within ${site.replyTime.replace(/[[\]]/g, "")}.`,
+        message: `Our form isn't connected yet. Please email us at ${site.email} and we'll reply within ${site.replyTime}.`,
       },
       { status: 503 },
     );
   }
   return Response.json({
-    message: `Thanks, ${enquiry.name.split(" ")[0]}! We'll reply within ${site.replyTime.replace(/[[\]]/g, "")}.`,
+    message: `Thanks, ${enquiry.name.split(" ")[0]}! We'll reply within ${site.replyTime}.`,
   });
 }

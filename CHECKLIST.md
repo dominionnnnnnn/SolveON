@@ -11,9 +11,9 @@ Tick items off (`[x]`) as they're done.
 
 ### Brand and contact (`src/lib/site.ts`)
 - [ ] Real email address (currently `hello@solveon.com`, a placeholder)
-- [ ] **WhatsApp number** (`whatsapp`, digits only, e.g. `2348012345678`). Contact shows `[+234 000 000 0000]` until set; then the tile opens a WhatsApp chat.
+- [x] **WhatsApp number**: +234 808 384 2079 (Contact tile opens a WhatsApp chat).
 - [ ] **Booking link** (`calendarUrl`, e.g. Cal.com or Calendly). Contact shows `[calendar link]` until set.
-- [ ] **Reply time** (`replyTime`), shown on Contact: `[one working day]`.
+- [x] **Reply time**: one working day.
 - [x] **Founder** (`src/lib/content.ts`): Adebiyi AbdulQuawiy. Done: role, bio, photo, portfolio / GitHub / LinkedIn / email icons.
 - [x] **Co-founder** (`src/lib/content.ts`): Adefalu Abdulrahman. Done: role (Frontend & Product), bio, photo, portfolio / GitHub / LinkedIn / email icons.
 
@@ -26,11 +26,11 @@ Tick items off (`[x]`) as they're done.
 
 ### About page (`src/components/about/about-sections.tsx`)
 - [ ] **Founding story**: two short paragraphs (why you started; how you work differently).
-- [ ] Check the local-skills tags are true for you: Paystack & Flutterwave, WhatsApp Business API, offline-friendly apps.
+- [x] Local-skills tags confirmed: Paystack & Flutterwave, WhatsApp Business API, offline-friendly apps.
 
 ### Services page (`src/components/services/services-sections.tsx`)
 - [ ] **Typical first-phase timelines** per service (design defaults: 4–6, 4–6, 3–5, 2–4, 2–3, 4–6 weeks). Once confirmed, remove the "[Adjust to your real delivery times.]" note.
-- [ ] **Support after launch**: confirm the number of days of fixes included (shows `[30]`). One setting, `supportDays` in `src/lib/content.ts`, used on Services and Pricing.
+- [x] **Support after launch**: 30 days of fixes included (`supportDays`, used on Services and Pricing).
 
 ### Work + case-study pages (`src/lib/projects.ts`)
 - [ ] For each project, the **case-study page** content: year, timeline, the problem (2–3 sentences), what you built (3 points), results (3 numbers with labels), tech stack, optional client quote and live link.
@@ -38,7 +38,7 @@ Tick items off (`[x]`) as they're done.
 
 ### Pricing page (`src/components/pricing/pricing-sections.tsx`)
 - [ ] **Starting prices** for MVP Sprint, Product Build (per phase) and Ongoing Partner (per month); all show `₦ [—]`. The hero's sample quote card also shows `₦ [—]`.
-- [ ] **Proposal turnaround**: "usually within `[3]` days".
+- [x] **Proposal turnaround**: usually within 3 days.
 - [ ] **Pricing FAQ answers**: 5 answers, all placeholders.
 
 ### Resources page (`src/lib/articles.ts`, one list for Resources and Home)

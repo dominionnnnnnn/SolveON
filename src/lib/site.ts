@@ -11,11 +11,11 @@ export const site = {
   // TODO: real contact details.
   email: "hello@solveon.com",
   /** WhatsApp number in international format, digits only, e.g. "2348012345678". Empty = placeholder shown. */
-  whatsapp: "" as string,
+  whatsapp: "2348083842079" as string,
   /** Booking link (e.g. Calendly or Cal.com). Empty = placeholder shown. */
   calendarUrl: "" as string,
   /** How fast you reply to enquiries, shown on Contact. */
-  replyTime: "[one working day]",
+  replyTime: "one working day",
   location: "Nigeria",
   locationLong: "Nigeria · Working with clients anywhere",
 } as const;

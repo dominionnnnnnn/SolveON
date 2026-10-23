@@ -14,8 +14,8 @@ Tick items off (`[x]`) as they're done.
 - [ ] **WhatsApp number** (`whatsapp`, digits only, e.g. `2348012345678`). Contact shows `[+234 000 000 0000]` until set; then the tile opens a WhatsApp chat.
 - [ ] **Booking link** (`calendarUrl`, e.g. Cal.com or Calendly). Contact shows `[calendar link]` until set.
 - [ ] **Reply time** (`replyTime`), shown on Contact: `[one working day]`.
-- [x] **Founder 1** (`src/lib/content.ts`): Adebiyi AbdulQuawiy, Backend & Architecture, photo, portfolio/GitHub/LinkedIn icons, bio.
-- [ ] **Co-founder** (`src/lib/content.ts`): name, initial, role, short bio, photo (portrait, any size; drop it in `public/team/`) and any of portfolio / GitHub / LinkedIn links.
+- [x] **Founder** (`src/lib/content.ts`): Adebiyi AbdulQuawiy. Done: role, bio, photo, portfolio / GitHub / LinkedIn / email icons.
+- [ ] **Co-founder** (`src/lib/content.ts`): Adefalu Abdulrahman. Done: photo, portfolio / GitHub / LinkedIn / email icons. **Still needed: his role** (shows `[Role]` on the About hero card and team card) **and a one-to-two-line bio.**
 
 ### Home page (`src/components/home/`)
 - [ ] **Stats** (`stats.tsx`): "Products shipped" and "Clients served" show `[00]`. Real numbers, or tell me to remove those two.
@@ -120,6 +120,7 @@ Tick items off (`[x]`) as they're done.
 - Newsletter form: real email validation, a status message under the form (positioned so it doesn't shift the layout), and an honest "not open yet" reply until a provider is connected.
 - Contact form: the design's fields, service buttons and dropdowns were static. The build validates required fields and email, lets you pick several services, has a hidden spam trap, and shows field-level errors and a status message. Services rows link to `/contact?service=…`, which pre-selects that service.
 - Contact on phones: the design keeps the form fields and contact tiles two-across, which cuts off placeholders ("you@compan…"). The build stacks them full width.
+- About team cards: email shows as an envelope icon (opens the visitor's mail app); the email stays out of the search structured data, which lists profile pages only.
 - About team cards: the photo slot is 5:4 instead of the design's fixed 300px strip, so portrait photos keep the whole head in view. Each founder can have portfolio / GitHub / LinkedIn icon links (any left out are hidden). Real founders are also listed in the Organization structured data with their profile links.
 - Location is "Nigeria" everywhere (not Lagos): the founders are based in Ogun State and Lagos.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

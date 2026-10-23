@@ -27,11 +27,32 @@ const icons = {
       <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
     </svg>
   ),
+  email: (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
+    </svg>
+  ),
 };
 
-const labels = { portfolio: "Portfolio", github: "GitHub", linkedin: "LinkedIn" } as const;
+const labels = {
+  portfolio: "Portfolio",
+  github: "GitHub",
+  linkedin: "LinkedIn",
+  email: "Email",
+} as const;
 
-/** Round icon links (portfolio, GitHub, LinkedIn) for a founder's team card. */
+/** Round icon links (portfolio, GitHub, LinkedIn, email) for a founder's team card. */
 export function FounderLinks({ founder }: { founder: Founder }) {
   const entries = (Object.keys(labels) as (keyof typeof labels)[])
     .map((k) => [k, founder.links?.[k]] as const)
@@ -39,20 +60,25 @@ export function FounderLinks({ founder }: { founder: Founder }) {
   if (!entries.length) return null;
   return (
     <ul className="m-0 mt-4 flex list-none gap-2 p-0">
-      {entries.map(([k, href]) => (
-        <li key={k}>
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${founder.name} on ${labels[k]}`}
-            title={labels[k]}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-ink hover:bg-green hover:text-ink"
-          >
-            {icons[k]}
-          </a>
-        </li>
-      ))}
+      {entries.map(([k, value]) => {
+        const email = k === "email";
+        return (
+          <li key={k}>
+            <a
+              href={email ? `mailto:${value}` : value}
+              target={email ? undefined : "_blank"}
+              rel={email ? undefined : "noopener noreferrer"}
+              aria-label={
+                email ? `Email ${founder.name} (${value})` : `${founder.name} on ${labels[k]}`
+              }
+              title={email ? value : labels[k]}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-ink hover:bg-green hover:text-ink"
+            >
+              {icons[k]}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   );
 }

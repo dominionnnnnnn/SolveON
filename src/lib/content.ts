@@ -14,10 +14,10 @@ export type Founder = {
   /** Which part of the photo stays in view when it's cropped to the card (CSS object-position). */
   photoFocus?: string;
   /** Shown as icon links on the team card. Leave any out to hide that icon. */
-  links?: { portfolio?: string; github?: string; linkedin?: string };
+  links?: { portfolio?: string; github?: string; linkedin?: string; email?: string };
 };
 
-// TODO: co-founder details, and both bios.
+// Founder and co-founder. Open items are marked TODO.
 export const founders: Founder[] = [
   {
     name: "Adebiyi AbdulQuawiy",
@@ -31,15 +31,25 @@ export const founders: Founder[] = [
       portfolio: "https://domstack.vercel.app",
       github: "https://github.com/dominionnnnnnn",
       linkedin: "https://www.linkedin.com/in/aabdulquawiy/",
+      email: "a.abdulquawiy@gmail.com",
     },
   },
   {
-    name: "[Co-founder name]",
-    initial: "[B]",
-    focus: "[Role, e.g. Frontend & product]",
-    role: "[Co-founder · Role]",
+    name: "Adefalu Abdulrahman",
+    initial: "A",
+    // TODO: his role, e.g. "Frontend & Product" (shown on the hero card and team card)
+    focus: "[Role]",
+    role: "Co-founder · [Role]",
+    // TODO: one or two lines on what he owns on the team and what he's built before.
     bio: "[One or two lines on what they own on the team and what they've built before.]",
-    photo: "",
+    photo: "/team/adefalu-abdulrahman.jpg",
+    photoFocus: "50% 20%",
+    links: {
+      portfolio: "https://adefalu.online",
+      github: "https://github.com/Lanrewaju-adedapo",
+      linkedin: "https://www.linkedin.com/in/adefalu-abdulrahman",
+      email: "adefaluara@gmail.com",
+    },
   },
 ];
 

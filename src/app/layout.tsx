@@ -66,8 +66,10 @@ const orgJsonLd = {
     .map((f) => ({
       "@type": "Person",
       name: f.name,
-      jobTitle: f.focus,
-      sameAs: Object.values(f.links ?? {}),
+      // Skip a role that's still a [placeholder]
+      ...(f.focus.startsWith("[") ? {} : { jobTitle: f.focus }),
+      // Profile pages only (the email isn't a profile)
+      sameAs: [f.links?.portfolio, f.links?.github, f.links?.linkedin].filter(Boolean),
     })),
 };
 

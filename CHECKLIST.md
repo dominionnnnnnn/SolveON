@@ -98,8 +98,8 @@ Tick items off (`[x]`) as they're done.
 ## Design notes (kept for reference)
 
 - The headline on Home has an explicit line break after "around" on tablet and desktop. The self-hosted font renders slightly narrower than the design tool's, so a natural wrap would put "what" on line one.
-- The design's ≤960px rule pinned the services panel at `top: 0` under a sticky 64px header. The build uses `top: 64px` there so the header doesn't cover it.
-- The design turned off the services scroll animation on windows 1400px+ tall. That also caught zoomed-out browsers and large monitors, so the effect silently disappeared. The build pins whenever the panel fits on screen and only falls back to tap-to-open on very short windows (phone held sideways).
+- Below 960px the pinned services block sits under the sticky 64px header (`top: 64px`), not at `top: 0` as in the design.
+- **Home "What we build" panels.** The panel area is fitted to the screen height (max 560px) instead of a fixed 560px, so the section pins and scrolls through all six cards on laptops and phones too. (Earlier versions only pinned when the full 800px block fit, which silently disabled it on most laptops.) Desktop panels open sideways as designed; **on phones they stack vertically and each card rises from the bottom** (your request). The decorative tag rows drop to one or none on short screens so they never cover the text. Only extremely short windows (phone held sideways) fall back to tap-to-open.
 - About hero: in the design, the float animation overrides the cards' tilt, so they display straight. The build matches that (straight cards, still floating).
 - Inner pages fade the hero grid straight down (`.gridbg-down`); Home keeps its radial fade, as in the design.
 - About team section: "Specialists on demand" card removed at your request; the two founder cards sit two across.

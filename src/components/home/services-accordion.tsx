@@ -190,7 +190,8 @@ export function ServicesAccordion() {
   const rafRef = useRef<number | null>(null);
 
   const [f, setF] = useState(0); // 0..5, which panel is open (fractional while moving)
-  const [cw, setCw] = useState(1136); // viewport width of the track
+  const [cw, setCw] = useState(1136); // width of the panel area
+  const [vpH, setVpH] = useState(560); // height of the panel area (fitted to the screen)
   const [pinned, setPinned] = useState(false);
 
   const apply = useCallback((v: number) => {
@@ -231,12 +232,24 @@ export function ServicesAccordion() {
 
   useEffect(() => {
     const measure = () => {
-      if (vpRef.current) setCw(vpRef.current.clientWidth);
-      // Pin whenever the whole panel fits on screen. Only very short windows
-      // (e.g. a phone held sideways) skip pinning; there the panels are tapped instead.
+      const vp = vpRef.current;
       const sticky = stickyRef.current;
+      if (!vp || !sticky) return;
+      const width = vp.clientWidth;
+      const mobile = width < 640;
+      // Fit the panels to the screen: whatever height is left after the header bar
+      // (sticky below 960px) and this section's own heading.
       const headerOffset = window.innerWidth <= 960 ? 64 : 0;
-      setPinned(!!sticky && sticky.offsetHeight <= window.innerHeight - headerOffset);
+      const chrome = sticky.offsetHeight - vp.offsetHeight;
+      const available = window.innerHeight - headerOffset - chrome;
+      const max = mobile ? 540 : 560;
+      const min = mobile ? 300 : 360;
+      const canPin = available >= min;
+      setCw(width);
+      setVpH(canPin ? Math.min(max, Math.floor(available)) : mobile ? 440 : 560);
+      // Only extremely short windows (e.g. a phone held sideways) skip pinning;
+      // there the panels are tapped instead.
+      setPinned(canPin);
     };
     measure();
     window.addEventListener("resize", measure);
@@ -270,24 +283,38 @@ export function ServicesAccordion() {
     }
   };
 
-  // Layout maths (same as the design).
+  // Layout maths. Desktop: panels open sideways (as in the design).
+  // Phones: panels stack vertically and the next one rises from the bottom.
   const i0 = Math.min(LAST, Math.floor(f));
   const t = f - i0;
   const sel = Math.min(LAST, Math.round(f));
   const mob = cw < 640;
-  const closedW = mob ? 52 : 112;
-  const step = closedW + (mob ? 8 : 14);
-  const openW = mob ? Math.max(220, cw - step) : Math.max(520, cw - 252);
+  const closed = mob ? 56 : 112;
+  const step = closed + (mob ? 8 : 14);
+  const span = mob ? vpH : cw; // length of the axis the panels move along
+  const openSize = mob ? Math.max(240, span - step) : Math.max(520, cw - 252);
+  // How many rows of tags fit under the text at this panel height
+  const chipRows = mob
+    ? openSize >= 400
+      ? 2
+      : openSize >= 340
+        ? 1
+        : 0
+    : vpH >= 510
+      ? 2
+      : vpH >= 430
+        ? 1
+        : 0;
 
   return (
     <section className="wrap svc-sec pt-16 phone:pt-28" aria-labelledby="what-we-build">
       <div ref={pinRef} className="relative" style={{ height: pinned ? PIN_HEIGHT : "auto" }}>
         <div
           ref={stickyRef}
-          className="svc-sticky top-0 bg-white py-7"
+          className="svc-sticky top-0 bg-white py-4 phone:py-7"
           style={{ position: pinned ? "sticky" : "relative" }}
         >
-          <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex flex-wrap items-end justify-between gap-4 phone:gap-6">
             <div>
               <span className="eb">What we build</span>
               <h2 id="what-we-build" className="disp h2 mt-4">
@@ -319,27 +346,37 @@ export function ServicesAccordion() {
             </div>
           </div>
 
-          <div ref={vpRef} className="svc-vp mt-7 h-[560px] overflow-hidden font-display">
+          <div
+            ref={vpRef}
+            className="svc-vp mt-5 overflow-hidden font-display phone:mt-7"
+            style={{ height: vpH }}
+          >
             <ul
-              className="svc-track m-0 flex h-full list-none gap-3.5 p-0 will-change-transform"
+              className={`m-0 flex h-full list-none p-0 will-change-transform ${
+                mob ? "flex-col gap-2" : "gap-3.5"
+              }`}
               style={{
-                transform: `translateX(-${(f * step).toFixed(2)}px)`,
+                transform: mob
+                  ? `translateY(-${(f * step).toFixed(2)}px)`
+                  : `translateX(-${(f * step).toFixed(2)}px)`,
                 transition: pinned ? "none" : `transform 0.55s ${EASE}`,
               }}
             >
               {services.map((s, i) => {
                 const open = i === sel;
                 const grow = i === i0 ? 1 - t : i === i0 + 1 ? t : 0;
-                const fullW = i === LAST ? Math.max(openW, cw) : openW;
-                const width = closedW + grow * (fullW - closedW);
+                const full = i === LAST ? Math.max(openSize, span) : openSize;
+                const size = closed + grow * (full - closed);
                 const op = Math.max(0, Math.min(1, 1 - 2 * Math.abs(f - i)));
                 return (
                   <li
                     key={s.key}
-                    className="svc-card relative box-border h-full overflow-hidden rounded-[36px] border-[3px] border-ink"
+                    className={`relative box-border overflow-hidden border-ink ${
+                      mob ? "w-full rounded-3xl border-2" : "h-full rounded-[36px] border-[3px]"
+                    }`}
                     style={{
-                      flex: `0 0 ${width.toFixed(1)}px`,
-                      minWidth: closedW,
+                      flex: `0 0 ${size.toFixed(1)}px`,
+                      [mob ? "minHeight" : "minWidth"]: closed,
                       background: s.bg,
                       color: s.fg,
                       transition: pinned ? "none" : `flex 0.55s ${EASE}`,
@@ -347,58 +384,88 @@ export function ServicesAccordion() {
                   >
                     <span
                       aria-hidden="true"
-                      className="svc-ico absolute top-7 inline-flex h-14 w-14 items-center justify-center rounded-full border-2 border-ink bg-green transition-[left] duration-[550ms]"
-                      style={{ left: open ? (mob ? 22 : 40) : mob ? 3 : 25 }}
+                      className={`absolute inline-flex items-center justify-center rounded-full border-2 border-ink bg-green transition-[left,top] duration-[550ms] ${
+                        mob ? "h-[42px] w-[42px] [&_svg]:h-5 [&_svg]:w-5" : "top-7 h-14 w-14"
+                      }`}
+                      style={
+                        mob ? { left: open ? 22 : 5, top: open ? 16 : 5 } : { left: open ? 40 : 25 }
+                      }
                     >
                       {s.icon}
                     </span>
 
                     {/* Body is always in the HTML so every service is readable by search engines. */}
                     <div
-                      className="svc-body absolute left-10 right-10 top-28"
+                      className={`absolute ${
+                        mob ? "left-[22px] right-[22px] top-[72px]" : "left-10 right-10 top-28"
+                      }`}
                       style={{ opacity: op, visibility: op > 0 ? "visible" : "hidden" }}
                       aria-hidden={!open}
                       inert={!open}
                     >
-                      <h3 className="m-0 whitespace-nowrap text-[clamp(40px,4.4vw,60px)] font-extrabold leading-none tracking-[-0.045em]">
+                      <h3
+                        className={`m-0 font-extrabold leading-none tracking-[-0.045em] ${
+                          mob ? "text-[30px]" : "whitespace-nowrap text-[clamp(40px,4.4vw,60px)]"
+                        }`}
+                      >
                         {s.title}
                       </h3>
-                      <p className="mt-[18px] max-w-[540px] text-[19px] leading-normal opacity-85">
+                      <p
+                        className={`max-w-[540px] leading-normal opacity-85 ${
+                          mob ? "mt-2.5 text-[15px]" : "mt-[18px] text-[19px]"
+                        }`}
+                      >
                         {s.desc}
                       </p>
                       <Link
                         href={s.href}
-                        className="mt-6 inline-flex h-12 items-center justify-center rounded-full border-2 border-ink bg-white px-6 text-[15px] font-bold text-ink hover:text-ink"
+                        className={`inline-flex items-center justify-center rounded-full border-2 border-ink bg-white px-6 font-bold text-ink hover:text-ink ${
+                          mob ? "mt-4 h-[42px] text-sm" : "mt-6 h-12 text-[15px]"
+                        }`}
                       >
                         Learn more →
                       </Link>
                     </div>
 
-                    {open && (
+                    {open && chipRows > 0 && (
                       <div
                         aria-hidden="true"
-                        className="svc-chips absolute inset-x-0 bottom-[26px] flex flex-col gap-3.5"
+                        className={`absolute inset-x-0 flex flex-col ${
+                          mob ? "bottom-[18px] gap-2" : "bottom-[26px] gap-3.5"
+                        }`}
                         style={{ opacity: op }}
                       >
                         <TagRow labels={s.rowA} shift={0} />
-                        <TagRow labels={s.rowB} shift={2} reverse />
+                        {chipRows > 1 && <TagRow labels={s.rowB} shift={2} reverse />}
                       </div>
                     )}
 
                     {!open && (
                       <>
-                        <span
-                          aria-hidden="true"
-                          className="svc-vt absolute bottom-7 left-1/2 whitespace-nowrap text-[46px] font-extrabold leading-none tracking-[-0.04em] [writing-mode:vertical-rl]"
-                          style={{ transform: "translateX(-50%) rotate(180deg)" }}
-                        >
-                          {s.title}
-                        </span>
+                        {mob ? (
+                          // Collapsed strip on phones: title reads across, next to the icon
+                          <span
+                            aria-hidden="true"
+                            className="absolute left-[60px] right-4 top-0 flex h-[52px] items-center truncate text-xl font-extrabold tracking-[-0.03em]"
+                          >
+                            {s.title}
+                          </span>
+                        ) : (
+                          <span
+                            aria-hidden="true"
+                            className="absolute bottom-7 left-1/2 whitespace-nowrap text-[46px] font-extrabold leading-none tracking-[-0.04em] [writing-mode:vertical-rl]"
+                            style={{ transform: "translateX(-50%) rotate(180deg)" }}
+                          >
+                            {s.title}
+                          </span>
+                        )}
                         <button
                           type="button"
                           onClick={() => goTo(i)}
                           aria-label={`Show ${s.title}`}
-                          className="svc-open absolute inset-0 m-0 h-full w-full cursor-pointer rounded-[33px] border-0 bg-transparent p-0"
+                          className={`svc-open absolute inset-0 m-0 h-full w-full cursor-pointer border-0 bg-transparent p-0 ${
+                            mob ? "rounded-[22px]" : "rounded-[33px]"
+                          }`}
                         />
                       </>
                     )}

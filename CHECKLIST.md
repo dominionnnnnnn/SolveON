@@ -14,7 +14,7 @@ Tick items off (`[x]`) as they're done.
 - [ ] **WhatsApp number** (`whatsapp`, digits only, e.g. `2348012345678`). Contact shows `[+234 000 000 0000]` until set; then the tile opens a WhatsApp chat.
 - [ ] **Booking link** (`calendarUrl`, e.g. Cal.com or Calendly). Contact shows `[calendar link]` until set.
 - [ ] **Reply time** (`replyTime`), shown on Contact: `[one working day]`.
-- [x] **Founder 1** (`src/lib/content.ts`): Adebiyi AbdulQuawiy, Backend & Architecture, photo, portfolio/GitHub/LinkedIn icons. Still needed: his short **bio** for the team card.
+- [x] **Founder 1** (`src/lib/content.ts`): Adebiyi AbdulQuawiy, Backend & Architecture, photo, portfolio/GitHub/LinkedIn icons, bio.
 - [ ] **Co-founder** (`src/lib/content.ts`): name, initial, role, short bio, photo (portrait, any size; drop it in `public/team/`) and any of portfolio / GitHub / LinkedIn links.
 
 ### Home page (`src/components/home/`)

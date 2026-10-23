@@ -16,8 +16,8 @@ export const site = {
   calendarUrl: "" as string,
   /** How fast you reply to enquiries, shown on Contact. */
   replyTime: "[one working day]",
-  location: "Lagos, Nigeria",
-  locationLong: "Lagos, Nigeria · Working with clients anywhere",
+  location: "Nigeria",
+  locationLong: "Nigeria · Working with clients anywhere",
 } as const;
 
 export type NavLink = { label: string; href: string };

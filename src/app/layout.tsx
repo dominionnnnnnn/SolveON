@@ -59,7 +59,7 @@ const orgJsonLd = {
   url: site.url,
   logo: `${site.url}/brand/solveon-icon-512.png`,
   email: site.email,
-  address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "NG" },
+  address: { "@type": "PostalAddress", addressCountry: "NG" },
   // Real founders only (placeholders in [brackets] are skipped)
   founder: founders
     .filter((f) => !f.name.startsWith("["))

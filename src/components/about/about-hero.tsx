@@ -17,8 +17,8 @@ export function AboutHero() {
             <span className="mk">One standard.</span>
           </h1>
           <p className="muted mt-[26px] max-w-[520px] text-lg leading-[1.6]">
-            {site.name} is a small Lagos-based software team. We take what people need, turn it into
-            working software, and stay accountable for it after launch.
+            {site.name} is a small Nigeria-based software team. We take what people need, turn it
+            into working software, and stay accountable for it after launch.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/contact" className="btn btn-g">

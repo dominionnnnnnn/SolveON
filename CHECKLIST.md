@@ -121,4 +121,5 @@ Tick items off (`[x]`) as they're done.
 - Contact form: the design's fields, service buttons and dropdowns were static. The build validates required fields and email, lets you pick several services, has a hidden spam trap, and shows field-level errors and a status message. Services rows link to `/contact?service=…`, which pre-selects that service.
 - Contact on phones: the design keeps the form fields and contact tiles two-across, which cuts off placeholders ("you@compan…"). The build stacks them full width.
 - About team cards: the photo slot is 5:4 instead of the design's fixed 300px strip, so portrait photos keep the whole head in view. Each founder can have portfolio / GitHub / LinkedIn icon links (any left out are hidden). Real founders are also listed in the Organization structured data with their profile links.
+- Location is "Nigeria" everywhere (not Lagos): the founders are based in Ogun State and Lagos.
 - Desktop nav items with chevrons open dropdowns (the design only showed the chevrons). The sub-links match the mobile menu.

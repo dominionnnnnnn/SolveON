@@ -37,7 +37,7 @@ export function Story() {
           <div className="relative">
             <div className="text-[13px] font-medium text-white/60">Where we work from</div>
             <p className="disp mt-3.5 text-[clamp(30px,3vw,40px)] font-extrabold leading-[1.08]">
-              Rooted in Lagos.
+              Rooted in Nigeria.
               <br />
               <span className="text-green">Shipping anywhere.</span>
             </p>

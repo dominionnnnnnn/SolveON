@@ -24,7 +24,7 @@ export const founders: Founder[] = [
     initial: "A",
     focus: "Backend & Architecture",
     role: "Co-founder · Backend & Architecture",
-    bio: "Owns the backend: APIs, databases and the architecture that keeps products reliable after launch. Has built GraphQL APIs, payment flows and real-time systems with Django, PostgreSQL and Supabase.",
+    bio: "Designs and builds the systems behind our products, from data models to APIs to deployment. Recent work includes an emergency-response platform and a peer-to-peer trading app.",
     photo: "/team/adebiyi-abdulquawiy.jpg",
     photoFocus: "50% 38%",
     links: {

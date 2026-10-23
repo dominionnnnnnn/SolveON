@@ -23,7 +23,7 @@ export const founders: Founder[] = [
     name: "Adebiyi AbdulQuawiy",
     initial: "A",
     focus: "Backend & Architecture",
-    role: "Co-founder · Backend & Architecture",
+    role: "Founder · Backend & Architecture",
     bio: "Designs and builds the systems behind our products, from data models to APIs to deployment. Recent work includes an emergency-response platform and a peer-to-peer trading app.",
     photo: "/team/adebiyi-abdulquawiy.jpg",
     photoFocus: "50% 38%",

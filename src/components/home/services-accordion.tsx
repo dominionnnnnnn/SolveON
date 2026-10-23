@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 /* ------------------------------------------------------------------ */
 /* Content                                                             */
@@ -145,15 +145,18 @@ const tagColors = [
 
 const LAST = services.length - 1; // 5
 const PIN_HEIGHT = 3500; // px of scroll the section stays pinned for
-const HOLD = 0.55; // share of each step the open panel holds still
-const LERP = 0.16; // per-frame smoothing
+const HOLD = 0.55; // share of each step the open panel holds still (desktop, as designed)
+const HOLD_MOBILE = 0.4; // phones: longer, gentler transitions
+const LERP = 0.16; // per-frame smoothing (desktop, as designed)
+const LERP_MOBILE = 0.24; // phones: follows the finger more closely
+const DESIGN_H = 560; // desktop panel height in the design
 const EASE = "cubic-bezier(.2,.8,.2,1)";
 
 const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
 /* ------------------------------------------------------------------ */
 
-function TagRow({
+const TagRow = memo(function TagRow({
   labels,
   shift,
   reverse,
@@ -179,7 +182,7 @@ function TagRow({
       </div>
     </div>
   );
-}
+});
 
 export function ServicesAccordion() {
   const pinRef = useRef<HTMLDivElement>(null);
@@ -188,10 +191,12 @@ export function ServicesAccordion() {
   const fRef = useRef(0);
   const targetRef = useRef(0);
   const rafRef = useRef<number | null>(null);
+  const mobileRef = useRef(false);
 
   const [f, setF] = useState(0); // 0..5, which panel is open (fractional while moving)
   const [cw, setCw] = useState(1136); // width of the panel area
-  const [vpH, setVpH] = useState(560); // height of the panel area (fitted to the screen)
+  const [vpH, setVpH] = useState(560); // phones: panel height fitted to the screen
+  const [scale, setScale] = useState(1); // desktop: whole panel scaled down on short screens
   const [pinned, setPinned] = useState(false);
 
   const apply = useCallback((v: number) => {
@@ -210,7 +215,7 @@ export function ServicesAccordion() {
         apply(targetRef.current);
         return;
       }
-      apply(fRef.current + d * LERP);
+      apply(fRef.current + d * (mobileRef.current ? LERP_MOBILE : LERP));
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
@@ -224,7 +229,8 @@ export function ServicesAccordion() {
     const p = Math.min(1, Math.max(0, -el.getBoundingClientRect().top / total));
     const raw = p * LAST;
     const seg = Math.min(LAST - 1, Math.floor(raw));
-    const x = Math.max(0, Math.min(1, (raw - seg - HOLD) / (1 - HOLD)));
+    const hold = mobileRef.current ? HOLD_MOBILE : HOLD;
+    const x = Math.max(0, Math.min(1, (raw - seg - hold) / (1 - hold)));
     const eased = x * x * (3 - 2 * x); // smoothstep
     targetRef.current = raw >= LAST ? LAST : seg + eased;
     kick();
@@ -242,11 +248,20 @@ export function ServicesAccordion() {
       const headerOffset = window.innerWidth <= 960 ? 64 : 0;
       const chrome = sticky.offsetHeight - vp.offsetHeight;
       const available = window.innerHeight - headerOffset - chrome;
-      const max = mobile ? 540 : 560;
       const min = mobile ? 300 : 360;
       const canPin = available >= min;
+      mobileRef.current = mobile;
       setCw(width);
-      setVpH(canPin ? Math.min(max, Math.floor(available)) : mobile ? 440 : 560);
+      if (mobile) {
+        // Phones: the vertical stack fills whatever height is left.
+        setVpH(canPin ? Math.min(540, Math.floor(available)) : 440);
+        setScale(1);
+      } else {
+        // Desktop: keep the design's exact 560px layout and scale the whole panel
+        // down evenly on shorter screens, so proportions never change.
+        setVpH(DESIGN_H);
+        setScale(canPin ? Math.min(1, available / DESIGN_H) : 1);
+      }
       // Only extremely short windows (e.g. a phone held sideways) skip pinning;
       // there the panels are tapped instead.
       setPinned(canPin);
@@ -289,22 +304,13 @@ export function ServicesAccordion() {
   const t = f - i0;
   const sel = Math.min(LAST, Math.round(f));
   const mob = cw < 640;
+  const innerW = mob ? cw : cw / scale; // desktop layout width before scaling
   const closed = mob ? 56 : 112;
   const step = closed + (mob ? 8 : 14);
-  const span = mob ? vpH : cw; // length of the axis the panels move along
-  const openSize = mob ? Math.max(240, span - step) : Math.max(520, cw - 252);
+  const span = mob ? vpH : innerW; // length of the axis the panels move along
+  const openSize = mob ? Math.max(240, span - step) : Math.max(520, innerW - 252);
   // How many rows of tags fit under the text at this panel height
-  const chipRows = mob
-    ? openSize >= 400
-      ? 2
-      : openSize >= 340
-        ? 1
-        : 0
-    : vpH >= 510
-      ? 2
-      : vpH >= 430
-        ? 1
-        : 0;
+  const chipRows = mob ? (openSize >= 400 ? 2 : openSize >= 340 ? 1 : 0) : 2; // desktop always has the design's full height
 
   return (
     <section className="wrap svc-sec pt-16 phone:pt-28" aria-labelledby="what-we-build">
@@ -349,130 +355,145 @@ export function ServicesAccordion() {
           <div
             ref={vpRef}
             className="svc-vp mt-5 overflow-hidden font-display phone:mt-7"
-            style={{ height: vpH }}
+            style={{ height: mob ? vpH : DESIGN_H * scale }}
           >
-            <ul
-              className={`m-0 flex h-full list-none p-0 will-change-transform ${
-                mob ? "flex-col gap-2" : "gap-3.5"
-              }`}
-              style={{
-                transform: mob
-                  ? `translateY(-${(f * step).toFixed(2)}px)`
-                  : `translateX(-${(f * step).toFixed(2)}px)`,
-                transition: pinned ? "none" : `transform 0.55s ${EASE}`,
-              }}
+            <div
+              style={
+                mob
+                  ? { height: "100%" }
+                  : {
+                      width: innerW,
+                      height: DESIGN_H,
+                      transform: scale < 1 ? `scale(${scale})` : undefined,
+                      transformOrigin: "0 0",
+                    }
+              }
             >
-              {services.map((s, i) => {
-                const open = i === sel;
-                const grow = i === i0 ? 1 - t : i === i0 + 1 ? t : 0;
-                const full = i === LAST ? Math.max(openSize, span) : openSize;
-                const size = closed + grow * (full - closed);
-                const op = Math.max(0, Math.min(1, 1 - 2 * Math.abs(f - i)));
-                return (
-                  <li
-                    key={s.key}
-                    className={`relative box-border overflow-hidden border-ink ${
-                      mob ? "w-full rounded-3xl border-2" : "h-full rounded-[36px] border-[3px]"
-                    }`}
-                    style={{
-                      flex: `0 0 ${size.toFixed(1)}px`,
-                      [mob ? "minHeight" : "minWidth"]: closed,
-                      background: s.bg,
-                      color: s.fg,
-                      transition: pinned ? "none" : `flex 0.55s ${EASE}`,
-                    }}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`absolute inline-flex items-center justify-center rounded-full border-2 border-ink bg-green transition-[left,top] duration-[550ms] ${
-                        mob ? "h-[42px] w-[42px] [&_svg]:h-5 [&_svg]:w-5" : "top-7 h-14 w-14"
+              <ul
+                className={`m-0 flex h-full list-none p-0 will-change-transform ${
+                  mob ? "flex-col gap-2" : "gap-3.5"
+                }`}
+                style={{
+                  transform: mob
+                    ? `translateY(-${(f * step).toFixed(2)}px)`
+                    : `translateX(-${(f * step).toFixed(2)}px)`,
+                  transition: pinned ? "none" : `transform 0.55s ${EASE}`,
+                }}
+              >
+                {services.map((s, i) => {
+                  const open = i === sel;
+                  const grow = i === i0 ? 1 - t : i === i0 + 1 ? t : 0;
+                  const full = i === LAST ? Math.max(openSize, span) : openSize;
+                  const size = closed + grow * (full - closed);
+                  const op = Math.max(0, Math.min(1, 1 - 2 * Math.abs(f - i)));
+                  return (
+                    <li
+                      key={s.key}
+                      className={`relative box-border overflow-hidden border-ink ${
+                        mob ? "w-full rounded-3xl border-2" : "h-full rounded-[36px] border-[3px]"
                       }`}
-                      style={
-                        mob ? { left: open ? 22 : 5, top: open ? 16 : 5 } : { left: open ? 40 : 25 }
-                      }
+                      style={{
+                        flex: `0 0 ${size.toFixed(1)}px`,
+                        [mob ? "minHeight" : "minWidth"]: closed,
+                        background: s.bg,
+                        color: s.fg,
+                        transition: pinned ? "none" : `flex 0.55s ${EASE}`,
+                      }}
                     >
-                      {s.icon}
-                    </span>
-
-                    {/* Body is always in the HTML so every service is readable by search engines. */}
-                    <div
-                      className={`absolute ${
-                        mob ? "left-[22px] right-[22px] top-[72px]" : "left-10 right-10 top-28"
-                      }`}
-                      style={{ opacity: op, visibility: op > 0 ? "visible" : "hidden" }}
-                      aria-hidden={!open}
-                      inert={!open}
-                    >
-                      <h3
-                        className={`m-0 font-extrabold leading-none tracking-[-0.045em] ${
-                          mob ? "text-[30px]" : "whitespace-nowrap text-[clamp(40px,4.4vw,60px)]"
-                        }`}
-                      >
-                        {s.title}
-                      </h3>
-                      <p
-                        className={`max-w-[540px] leading-normal opacity-85 ${
-                          mob ? "mt-2.5 text-[15px]" : "mt-[18px] text-[19px]"
-                        }`}
-                      >
-                        {s.desc}
-                      </p>
-                      <Link
-                        href={s.href}
-                        className={`inline-flex items-center justify-center rounded-full border-2 border-ink bg-white px-6 font-bold text-ink hover:text-ink ${
-                          mob ? "mt-4 h-[42px] text-sm" : "mt-6 h-12 text-[15px]"
-                        }`}
-                      >
-                        Learn more →
-                      </Link>
-                    </div>
-
-                    {open && chipRows > 0 && (
-                      <div
+                      <span
                         aria-hidden="true"
-                        className={`absolute inset-x-0 flex flex-col ${
-                          mob ? "bottom-[18px] gap-2" : "bottom-[26px] gap-3.5"
+                        className={`absolute inline-flex items-center justify-center rounded-full border-2 border-ink bg-green transition-[left,top] duration-[550ms] ${
+                          mob ? "h-[42px] w-[42px] [&_svg]:h-5 [&_svg]:w-5" : "top-7 h-14 w-14"
                         }`}
-                        style={{ opacity: op }}
+                        style={
+                          mob
+                            ? { left: open ? 22 : 5, top: open ? 16 : 5 }
+                            : { left: open ? 40 : 25 }
+                        }
                       >
-                        <TagRow labels={s.rowA} shift={0} />
-                        {chipRows > 1 && <TagRow labels={s.rowB} shift={2} reverse />}
-                      </div>
-                    )}
+                        {s.icon}
+                      </span>
 
-                    {!open && (
-                      <>
-                        {mob ? (
-                          // Collapsed strip on phones: title reads across, next to the icon
-                          <span
-                            aria-hidden="true"
-                            className="absolute left-[60px] right-4 top-0 flex h-[52px] items-center truncate text-xl font-extrabold tracking-[-0.03em]"
-                          >
-                            {s.title}
-                          </span>
-                        ) : (
-                          <span
-                            aria-hidden="true"
-                            className="absolute bottom-7 left-1/2 whitespace-nowrap text-[46px] font-extrabold leading-none tracking-[-0.04em] [writing-mode:vertical-rl]"
-                            style={{ transform: "translateX(-50%) rotate(180deg)" }}
-                          >
-                            {s.title}
-                          </span>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => goTo(i)}
-                          aria-label={`Show ${s.title}`}
-                          className={`svc-open absolute inset-0 m-0 h-full w-full cursor-pointer border-0 bg-transparent p-0 ${
-                            mob ? "rounded-[22px]" : "rounded-[33px]"
+                      {/* Body is always in the HTML so every service is readable by search engines. */}
+                      <div
+                        className={`absolute ${
+                          mob ? "left-[22px] right-[22px] top-[72px]" : "left-10 right-10 top-28"
+                        }`}
+                        style={{ opacity: op, visibility: op > 0 ? "visible" : "hidden" }}
+                        aria-hidden={!open}
+                        inert={!open}
+                      >
+                        <h3
+                          className={`m-0 font-extrabold leading-none tracking-[-0.045em] ${
+                            mob ? "text-[30px]" : "whitespace-nowrap text-[clamp(40px,4.4vw,60px)]"
                           }`}
-                        />
-                      </>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+                        >
+                          {s.title}
+                        </h3>
+                        <p
+                          className={`max-w-[540px] leading-normal opacity-85 ${
+                            mob ? "mt-2.5 text-[15px]" : "mt-[18px] text-[19px]"
+                          }`}
+                        >
+                          {s.desc}
+                        </p>
+                        <Link
+                          href={s.href}
+                          className={`inline-flex items-center justify-center rounded-full border-2 border-ink bg-white px-6 font-bold text-ink hover:text-ink ${
+                            mob ? "mt-4 h-[42px] text-sm" : "mt-6 h-12 text-[15px]"
+                          }`}
+                        >
+                          Learn more →
+                        </Link>
+                      </div>
+
+                      {open && chipRows > 0 && (
+                        <div
+                          aria-hidden="true"
+                          className={`absolute inset-x-0 flex flex-col ${
+                            mob ? "bottom-[18px] gap-2" : "bottom-[26px] gap-3.5"
+                          }`}
+                          style={{ opacity: op }}
+                        >
+                          <TagRow labels={s.rowA} shift={0} />
+                          {chipRows > 1 && <TagRow labels={s.rowB} shift={2} reverse />}
+                        </div>
+                      )}
+
+                      {!open && (
+                        <>
+                          {mob ? (
+                            // Collapsed strip on phones: title reads across, next to the icon
+                            <span
+                              aria-hidden="true"
+                              className="absolute left-[60px] right-4 top-0 flex h-[52px] items-center truncate text-xl font-extrabold tracking-[-0.03em]"
+                            >
+                              {s.title}
+                            </span>
+                          ) : (
+                            <span
+                              aria-hidden="true"
+                              className="absolute bottom-7 left-1/2 whitespace-nowrap text-[46px] font-extrabold leading-none tracking-[-0.04em] [writing-mode:vertical-rl]"
+                              style={{ transform: "translateX(-50%) rotate(180deg)" }}
+                            >
+                              {s.title}
+                            </span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => goTo(i)}
+                            aria-label={`Show ${s.title}`}
+                            className={`svc-open absolute inset-0 m-0 h-full w-full cursor-pointer border-0 bg-transparent p-0 ${
+                              mob ? "rounded-[22px]" : "rounded-[33px]"
+                            }`}
+                          />
+                        </>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

@@ -37,11 +37,9 @@ export const founders: Founder[] = [
   {
     name: "Adefalu Abdulrahman",
     initial: "A",
-    // TODO: his role, e.g. "Frontend & Product" (shown on the hero card and team card)
-    focus: "[Role]",
-    role: "Co-founder · [Role]",
-    // TODO: one or two lines on what he owns on the team and what he's built before.
-    bio: "[One or two lines on what they own on the team and what they've built before.]",
+    focus: "Frontend & Product",
+    role: "Co-founder · Frontend & Product",
+    bio: "Owns the frontend and the product side: turning ideas into clear flows and interfaces people actually enjoy using, and making sure what we ship works well on every screen.",
     photo: "/team/adefalu-abdulrahman.jpg",
     photoFocus: "50% 20%",
     links: {

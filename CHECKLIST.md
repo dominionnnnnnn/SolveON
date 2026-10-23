@@ -15,7 +15,7 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Booking link** (`calendarUrl`, e.g. Cal.com or Calendly). Contact shows `[calendar link]` until set.
 - [ ] **Reply time** (`replyTime`), shown on Contact: `[one working day]`.
 - [x] **Founder** (`src/lib/content.ts`): Adebiyi AbdulQuawiy. Done: role, bio, photo, portfolio / GitHub / LinkedIn / email icons.
-- [ ] **Co-founder** (`src/lib/content.ts`): Adefalu Abdulrahman. Done: photo, portfolio / GitHub / LinkedIn / email icons. **Still needed: his role** (shows `[Role]` on the About hero card and team card) **and a one-to-two-line bio.**
+- [x] **Co-founder** (`src/lib/content.ts`): Adefalu Abdulrahman. Done: role (Frontend & Product), bio, photo, portfolio / GitHub / LinkedIn / email icons.
 
 ### Home page (`src/components/home/`)
 - [ ] **Stats** (`stats.tsx`): "Products shipped" and "Clients served" show `[00]`. Real numbers, or tell me to remove those two.

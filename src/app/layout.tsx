@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { founders } from "@/lib/content";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -59,6 +60,15 @@ const orgJsonLd = {
   logo: `${site.url}/brand/solveon-icon-512.png`,
   email: site.email,
   address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "NG" },
+  // Real founders only (placeholders in [brackets] are skipped)
+  founder: founders
+    .filter((f) => !f.name.startsWith("["))
+    .map((f) => ({
+      "@type": "Person",
+      name: f.name,
+      jobTitle: f.focus,
+      sameAs: Object.values(f.links ?? {}),
+    })),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

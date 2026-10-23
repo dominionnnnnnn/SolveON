@@ -11,17 +11,28 @@ export type Founder = {
   bio: string;
   /** Path under /public, e.g. "/team/ada.jpg". Leave empty until there's a photo. */
   photo: string;
+  /** Which part of the photo stays in view when it's cropped to the card (CSS object-position). */
+  photoFocus?: string;
+  /** Shown as icon links on the team card. Leave any out to hide that icon. */
+  links?: { portfolio?: string; github?: string; linkedin?: string };
 };
 
-// TODO: real names, roles, bios and photos.
+// TODO: co-founder details, and both bios.
 export const founders: Founder[] = [
   {
-    name: "[Founder name]",
-    initial: "[A]",
-    focus: "[Role, e.g. Backend & architecture]",
-    role: "[Co-founder · Role]",
+    name: "Adebiyi AbdulQuawiy",
+    initial: "A",
+    focus: "Backend & Architecture",
+    role: "Co-founder · Backend & Architecture",
+    // TODO: one or two lines on what he owns on the team and what he's built before.
     bio: "[One or two lines on what they own on the team and what they've built before.]",
-    photo: "",
+    photo: "/team/adebiyi-abdulquawiy.jpg",
+    photoFocus: "50% 38%",
+    links: {
+      portfolio: "https://domstack.vercel.app",
+      github: "https://github.com/dominionnnnnnn",
+      linkedin: "https://www.linkedin.com/in/aabdulquawiy/",
+    },
   },
   {
     name: "[Co-founder name]",

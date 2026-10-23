@@ -33,7 +33,14 @@ export function FounderPhoto({
   if (founder.photo) {
     return (
       <div className={`relative overflow-hidden ${className}`}>
-        <Image src={founder.photo} alt={founder.name} fill sizes={sizes} className="object-cover" />
+        <Image
+          src={founder.photo}
+          alt={founder.name}
+          fill
+          sizes={sizes}
+          className="object-cover"
+          style={{ objectPosition: founder.photoFocus ?? "50% 35%" }}
+        />
       </div>
     );
   }

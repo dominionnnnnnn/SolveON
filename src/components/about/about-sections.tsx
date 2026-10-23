@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { FounderLinks } from "@/components/founder-links";
 import { FounderPhoto } from "@/components/founder-photo";
 import { PhasesGrid } from "@/components/phases-grid";
 import { founders } from "@/lib/content";
@@ -154,13 +155,16 @@ export function Team() {
               <FounderPhoto
                 founder={f}
                 tone={i === 0 ? "dark" : "light"}
-                className="h-[300px] rounded-xl text-sm"
+                // Portrait photos need a taller slot than the design's 300px strip, or the
+                // face gets cropped; 5:4 keeps the whole head and shoulders in view.
+                className="aspect-[5/4] rounded-xl text-sm"
                 sizes="(min-width: 1200px) 560px, (min-width: 641px) 50vw, 100vw"
               />
               <div className="px-1.5 pb-2 pt-[18px]">
                 <h3 className="text-xl font-semibold">{f.name}</h3>
                 <div className="mt-1 text-sm font-semibold text-green-dark">{f.role}</div>
                 <p className="muted mt-3 text-[15px] leading-[1.6]">{f.bio}</p>
+                <FounderLinks founder={f} />
               </div>
             </article>
           ))}

@@ -8,7 +8,9 @@ import { SelectedWork } from "@/components/home/selected-work";
 import { ServicesAccordion } from "@/components/home/services-accordion";
 import { StackMarquee } from "@/components/home/stack-marquee";
 import { Stats } from "@/components/home/stats";
-import { Testimonials } from "@/components/home/testimonials";
+// Testimonials hidden until there are real client quotes. To bring it back, uncomment
+// this import and <Testimonials /> below.
+// import { Testimonials } from "@/components/home/testimonials";
 
 export default function Home() {
   return (
@@ -20,7 +22,7 @@ export default function Home() {
       <StackMarquee />
       <Ownership />
       <Phases />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Faq />
       <Insights />
       <Cta />

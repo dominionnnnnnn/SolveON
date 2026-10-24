@@ -36,14 +36,9 @@ export const mainNav: NavItem[] = [
       { label: "View all services →", href: "/services" },
     ],
   },
-  {
-    label: "Work",
-    href: "/work",
-    children: [
-      { label: "Case studies", href: "/work" },
-      { label: "Testimonials", href: "/#testimonials" },
-    ],
-  },
+  // Plain link while Testimonials is hidden. To restore the dropdown, add back:
+  // children: [{ label: "Case studies", href: "/work" }, { label: "Testimonials", href: "/#testimonials" }]
+  { label: "Work", href: "/work" },
   { label: "Pricing", href: "/pricing" },
   {
     label: "About",
@@ -79,7 +74,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     title: "Work",
     links: [
       { label: "Case studies", href: "/work" },
-      { label: "Testimonials", href: "/#testimonials" },
+      // { label: "Testimonials", href: "/#testimonials" }, // hidden until there are real quotes
     ],
   },
   {

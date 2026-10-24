@@ -20,7 +20,7 @@ Tick items off (`[x]`) as they're done.
 ### Home page (`src/components/home/`)
 - [ ] **Stats** (`stats.tsx`): "Products shipped" and "Clients served" show `[00]`. Real numbers, or tell me to remove those two.
 - [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): 6 projects, each with name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters. Real screenshots can replace the drawn illustrations later.
-- [ ] **Testimonials** (`testimonials.tsx`): 4 quotes, each with name, role and company.
+- [x] **Testimonials: hidden for now** (your call). The section is commented out on Home (`src/app/page.tsx`) and its nav/footer links are removed. The code is kept in `src/components/home/testimonials.tsx`; uncomment it when you have real quotes.
 - [ ] **FAQ answers** (`faq.tsx`): 6 answers, all placeholders.
 - [ ] **Insights cards**: now come from the articles list (first three non-featured); see Resources below.
 
@@ -73,7 +73,6 @@ Tick items off (`[x]`) as they're done.
 |---|---|---|
 | FAQ structured data (Google rich results), Home and Pricing | Would publish the placeholder answers to Google | FAQ answers |
 | Social share image (Open Graph) | Should use final copy and brand; easy to add once pages settle | Before launch |
-| Review/rating structured data | Needs real testimonials | Testimonials |
 | Article cards (Resources + Home) link to `/resources`, not to individual articles | No article pages yet | Your decision on article pages |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
 

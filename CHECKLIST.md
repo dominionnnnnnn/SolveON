@@ -20,14 +20,14 @@ Tick items off (`[x]`) as they're done.
 ### Home page (`src/components/home/`)
 - [x] **Stats** (`stats.tsx`): 2+ products shipped, 4–6 wk typical build phase, 100% code you own. "Clients served" is commented out until there are clients (the row is three across for now).
 - [x] **Ledgio** added as the first case study (`/work/ledgio`, live and indexed): logo, real screenshots on the card, a 5-screenshot gallery, and a "Where it stands" band (Live / Early / Next) instead of results, since it has no usage numbers yet. Shown as an **in-house product**; no first-user or client details anywhere.
-- [ ] **Ledgio: confirm the wording** (label "In-house product" vs "Personal project", tagline, summary, the three "built" points and the Live / Early / Next lines) and **the two dashboard screenshots**: their account name and avatar are cropped out, but the worker names and figures are from that account. Send demo-account screenshots to swap them if you'd rather not show that data.
-- [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): 5 placeholder projects still to fill (or hide at launch). Each needs name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters.
+- [x] **Ledgio wording and screenshots** confirmed: "In-house product" label, dashboard screenshots OK.
+- [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): next real project coming from you. 5 placeholder projects still to fill (or hide at launch). Each needs name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters.
 - [x] **Testimonials: hidden for now** (your call). The section is commented out on Home (`src/app/page.tsx`) and its nav/footer links are removed. The code is kept in `src/components/home/testimonials.tsx`; uncomment it when you have real quotes.
-- [ ] **FAQ answers** (`faq.tsx`): 6 answers, all placeholders.
+- [ ] **FAQ answers** (`faq.tsx`): 6 answers. Drafts sent in chat (with Pricing and Contact FAQs) for approval.
 - [ ] **Insights cards**: now come from the articles list (first three non-featured); see Resources below.
 
 ### About page (`src/components/about/about-sections.tsx`)
-- [ ] **Founding story**: two short paragraphs (why you started; how you work differently).
+- [ ] **Founding story**: draft sent in chat for approval (same school, shared goals, building ideas together).
 - [x] Local-skills tags confirmed: Paystack & Flutterwave, WhatsApp Business API, offline-friendly apps.
 
 ### Services page (`src/components/services/services-sections.tsx`)
@@ -51,7 +51,7 @@ Tick items off (`[x]`) as they're done.
 - [ ] **Contact FAQ answers** (`src/components/contact/contact-sections.tsx`): 3 answers.
 
 ### Other pages
-- [ ] Privacy policy and Terms text (`/privacy` and `/terms` exist as placeholders, hidden from Google)
+- [ ] **Privacy policy and Terms: drafted, waiting for your review.** Written for a Nigeria-based studio (Nigeria Data Protection Act 2023, Nigerian law), covering what the site actually collects (contact form, newsletter, server logs; no ad trackers). Terms cover the website only; project terms go in each proposal. Still hidden from Google: after you approve, remove `robots` in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`. Not legal advice; have a lawyer look before you take on larger clients.
 
 ---
 
@@ -61,8 +61,8 @@ Tick items off (`[x]`) as they're done.
 - [x] **Case-study pages.** Decided: yes. Built at `/work/<slug>`; all project cards on Home and Work link there.
 - [ ] **Newsletter provider.** The sign-up form works but isn't connected to an email service, so it honestly replies "Sign-ups aren't open yet." Options: **Brevo** (free up to 300 emails/day, good for Nigeria-based senders), **Mailchimp**, **Buttondown** (simple, writer-focused) or **Kit/ConvertKit**. Pick one and I'll connect it (`src/app/api/newsletter/route.ts`).
 - [ ] **Article pages (`/resources/<slug>`).** Not in the design; cards link to Resources for now. My recommendation: write articles as **MDX files in the repo** (`content/insights/*.mdx`), which is free, fast, versioned in GitHub, with a `draft` flag like case studies. If your partner (non-developer) will write them, a **headless CMS** (e.g. Sanity, free tier) is friendlier. Your call on who writes, then I'll build it.
-- [ ] **Production domain.** Needed for canonical links, the sitemap and social previews. Set `NEXT_PUBLIC_SITE_URL` in Vercel once decided. Until then the code assumes `https://solveon.vercel.app`.
-- [ ] **Hosting.** Vercel (like your portfolio) is the natural fit. Connecting the repo is a one-time step in your Vercel account.
+- [ ] **Production domain.** You'll buy it around the end of October. Then: add it in Vercel and set `NEXT_PUBLIC_SITE_URL` to it. Until then the site uses `https://solveon-eight.vercel.app` for canonical links, the sitemap and social previews.
+- [x] **Hosting.** Live on Vercel at https://solveon-eight.vercel.app.
 - [ ] **Contact form destination. ⚠ Launch blocker.** The form is built and validated, but enquiries aren't delivered anywhere yet; it tells visitors to email you instead. Options: **email to your inbox via Resend** (free up to 3,000/month, my recommendation), plus optionally a **Google Sheet** row per enquiry for tracking, or a CRM if you use one. Pick and I'll connect it (`src/app/api/contact/route.ts`).
 - [ ] **Booking tool** for "book a call": Cal.com (free, open source) or Calendly. Just send the link.
 - [ ] **Placeholder sections at launch.** If testimonials/case studies aren't ready, hide those sections or launch with them? (Recommend hiding: placeholder text looks unfinished to visitors.)

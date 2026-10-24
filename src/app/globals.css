@@ -446,3 +446,21 @@
     animation: none;
   }
 }
+
+/* Privacy policy and Terms text */
+.legal p + p,
+.legal p + ul,
+.legal ul + p {
+  margin-top: 1em;
+}
+.legal ul {
+  padding-left: 1.25em;
+  list-style: disc;
+}
+.legal li + li {
+  margin-top: 0.4em;
+}
+.legal a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

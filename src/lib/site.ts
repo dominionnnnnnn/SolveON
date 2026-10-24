@@ -7,7 +7,7 @@ export const site = {
   description:
     "SolveON scopes, designs, builds and hands over software for businesses: web apps, mobile apps, backends, AI automation and websites, delivered in focused 4–6 week phases.",
   // TODO: replace with the production domain once it's set up.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://solveon.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://solveon-eight.vercel.app",
   // TODO: real contact details.
   email: "hello@solveon.com",
   /** WhatsApp number in international format, digits only, e.g. "2348012345678". Empty = placeholder shown. */

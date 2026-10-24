@@ -61,7 +61,7 @@ Tick items off (`[x]`) as they're done.
 - [x] **Case-study pages.** Decided: yes. Built at `/work/<slug>`; all project cards on Home and Work link there.
 - [ ] **Newsletter provider.** The sign-up form works but isn't connected to an email service, so it honestly replies "Sign-ups aren't open yet." Options: **Brevo** (free up to 300 emails/day, good for Nigeria-based senders), **Mailchimp**, **Buttondown** (simple, writer-focused) or **Kit/ConvertKit**. Pick one and I'll connect it (`src/app/api/newsletter/route.ts`).
 - [ ] **Article pages (`/resources/<slug>`).** Not in the design; cards link to Resources for now. My recommendation: write articles as **MDX files in the repo** (`content/insights/*.mdx`), which is free, fast, versioned in GitHub, with a `draft` flag like case studies. If your partner (non-developer) will write them, a **headless CMS** (e.g. Sanity, free tier) is friendlier. Your call on who writes, then I'll build it.
-- [ ] **Production domain.** You'll buy it around the end of October. Then: add it in Vercel and set `NEXT_PUBLIC_SITE_URL` to it. Until then the site uses `https://solveon-eight.vercel.app` for canonical links, the sitemap and social previews.
+- [ ] **Production domain.** You'll buy it around the end of October. Until then the site runs on **https://solveon-eight.vercel.app**. Every step for the switch is in section 3 below, "When the domain is live".
 - [x] **Hosting.** Live on Vercel at https://solveon-eight.vercel.app.
 - [ ] **Contact form destination. ⚠ Launch blocker.** The form is built and validated, but enquiries aren't delivered anywhere yet; it tells visitors to email you instead. Options: **email to your inbox via Resend** (free up to 3,000/month, my recommendation), plus optionally a **Google Sheet** row per enquiry for tracking, or a CRM if you use one. Pick and I'll connect it (`src/app/api/contact/route.ts`).
 - [ ] **Booking tool** for "book a call": Cal.com (free, open source) or Calendly. Just send the link.
@@ -69,7 +69,28 @@ Tick items off (`[x]`) as they're done.
 
 ---
 
-## 3. Deliberately left out or deferred 🔵
+## 3. When the domain is live 🔁
+
+The site currently uses **temporary values** that must be replaced once the domain is bought (planned for the end of October). Every page reads them from one place, `src/lib/site.ts` (`site.url` and `site.email`), so nothing else in the code needs editing.
+
+**Uses the temporary address `https://solveon-eight.vercel.app`:** canonical links on every page, Open Graph / social previews (`metadataBase`), `sitemap.xml`, `robots.txt`, and the structured data for Google (Organization, Services, case studies, Ledgio's screenshot).
+
+**Uses the placeholder email `hello@solveon.com`:** footer, mobile menu, the Contact page email tile, the contact form's fallback messages, the Privacy policy and Terms ("email us at…"), and the Organization structured data.
+
+Steps (you do 1–3, I do the rest):
+- [ ] 1. Buy the domain.
+- [ ] 2. In Vercel: Project → Settings → Domains → add the domain (and `www`), then follow Vercel's DNS instructions at your registrar.
+- [ ] 3. Set up the real email inbox on the domain (e.g. `hello@yourdomain`) and send me the address.
+- [ ] 4. Set `NEXT_PUBLIC_SITE_URL` in Vercel (Settings → Environment Variables) to `https://yourdomain`, and update the fallback in `src/lib/site.ts` to match.
+- [ ] 5. Replace `email` in `src/lib/site.ts` with the real address (updates every place listed above).
+- [ ] 6. Redirect `solveon-eight.vercel.app` to the new domain (Vercel → Domains → set the domain as primary) so Google only sees one address.
+- [ ] 7. Redeploy, then check `/sitemap.xml`, `/robots.txt` and a page's source show the new domain.
+- [ ] 8. Add the domain to Google Search Console and submit the sitemap.
+- [ ] 9. If the contact form uses Resend by then: verify the domain in Resend so enquiry emails send from it.
+
+---
+
+## 4. Deliberately left out or deferred 🔵
 
 | Item | Why it's deferred | Unblocked by |
 |---|---|---|
@@ -79,7 +100,7 @@ Tick items off (`[x]`) as they're done.
 
 ---
 
-## 4. Build progress
+## 5. Build progress
 
 | Page | Status |
 |---|---|

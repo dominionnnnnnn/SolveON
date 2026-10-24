@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaqList, type FaqItem } from "@/components/faq-list";
+import { FaqJsonLd, FaqList, type FaqItem } from "@/components/faq-list";
 import { pad2, supportDays } from "@/lib/content";
 
 /* ------------------------------------------------------------------ */
@@ -59,16 +59,27 @@ const steps = [
   },
 ];
 
-// TODO: write the real answers (then add FAQPage structured data).
 export const pricingFaqs: FaqItem[] = [
   {
     q: "Why don't you list fixed prices?",
-    a: "[Answer: two apps that sound the same can differ a lot in platforms, integrations and risk. A short discovery call lets us quote a price we will actually hold to.]",
+    a: "Two apps that sound the same can differ a lot in platforms, integrations and risk. A short call lets us quote a price we'll actually stick to, rather than a guess that changes halfway through.",
   },
-  { q: "How do payments work?", a: "[Answer goes here.]" },
-  { q: "What if the scope changes mid-phase?", a: "[Answer goes here.]" },
-  { q: "Are hosting and third-party costs included?", a: "[Answer goes here.]" },
-  { q: "Do you work with clients outside Nigeria?", a: "[Answer goes here.]" },
+  {
+    q: "How do payments work?",
+    a: "We charge per phase: 50% to start and 50% when the phase is delivered. Ongoing support is billed monthly. Clients in Nigeria pay in naira by bank transfer; clients abroad can pay in USD.",
+  },
+  {
+    q: "What if the scope changes mid-phase?",
+    a: "Small adjustments are part of the process. If something bigger comes up, we agree it with you first, either by swapping it for something of similar size or by adding it to the next phase, so there are no surprise bills.",
+  },
+  {
+    q: "Are hosting and third-party costs included?",
+    a: "No. Hosting, domains, app store fees and paid services (like SMS or payment gateways) are billed directly to your accounts, so you own them. We tell you the expected costs upfront.",
+  },
+  {
+    q: "Do you work with clients outside Nigeria?",
+    a: "Yes. We work remotely with clients anywhere, over calls, WhatsApp and shared project boards, with regular updates across time zones.",
+  },
 ];
 
 const quoteLines = [
@@ -306,6 +317,7 @@ export function PricingFaq() {
           Pricing <span className="mk">questions</span>
         </h2>
         <FaqList items={pricingFaqs} />
+        <FaqJsonLd items={pricingFaqs} />
       </div>
     </section>
   );

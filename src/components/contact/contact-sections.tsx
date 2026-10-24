@@ -1,5 +1,5 @@
 import { ContactForm } from "@/components/contact/contact-form";
-import { FaqList, type FaqItem } from "@/components/faq-list";
+import { FaqJsonLd, FaqList, type FaqItem } from "@/components/faq-list";
 import { site, whatsappDisplay, whatsappUrl } from "@/lib/site";
 
 const nextSteps = [
@@ -17,11 +17,19 @@ const nextSteps = [
   },
 ];
 
-// TODO: write the real answers.
 export const contactFaqs: FaqItem[] = [
-  { q: "Is the first call really free?", a: "[Answer goes here.]" },
-  { q: "Will you sign an NDA?", a: "[Answer goes here.]" },
-  { q: "Can you take over an existing project?", a: "[Answer goes here.]" },
+  {
+    q: "Is the first call really free?",
+    a: "Yes. It's a 30-minute call to understand your idea and tell you honestly how we'd approach it. There's no cost and no obligation to go ahead.",
+  },
+  {
+    q: "Will you sign an NDA?",
+    a: "Of course. Send yours or we'll provide one, and we'll sign it before you share anything sensitive.",
+  },
+  {
+    q: "Can you take over an existing project?",
+    a: "Yes. We start with a short code review to understand what's there and what state it's in, then recommend whether to improve it or rebuild parts of it, with a clear plan either way.",
+  },
 ];
 
 function ContactTile({ label, value, href }: { label: string; value: string; href?: string }) {
@@ -102,6 +110,7 @@ export function ContactFaq() {
           Before you <span className="mk">reach out</span>
         </h2>
         <FaqList items={contactFaqs} className="mt-10" />
+        <FaqJsonLd items={contactFaqs} />
       </div>
     </section>
   );

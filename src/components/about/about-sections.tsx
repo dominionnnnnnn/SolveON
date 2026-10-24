@@ -7,10 +7,9 @@ import { founders } from "@/lib/content";
 
 /* ---------------- Story ---------------- */
 
-// TODO: write the founding story (two short paragraphs).
 const story = {
-  why: "[Two or three sentences on why you started the team: the problem you kept seeing with how software gets built and handed over.]",
-  how: "[One or two sentences on how you work differently: small team, one accountable lead, clear scope, real handover.]",
+  why: "SolveON started with two friends from the same university who kept having the same conversation: spotting problems around us and sketching the software that could fix them. We share the same goals and the same love for building, so we decided to turn those ideas into real products, for ourselves and for the businesses we work with.",
+  how: "One of us leads the backend and architecture, the other the frontend and product, so every project gets end-to-end ownership from a small team that thinks problems through together. We agree the outcome first, ship in clear phases, and hand over everything we build.",
 };
 
 const localSkills = ["Paystack & Flutterwave", "WhatsApp Business API", "Offline-friendly apps"];

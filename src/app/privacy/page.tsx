@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/legal/legal-page";
 import { site } from "@/lib/site";
 
-// TODO (CHECKLIST): draft text. Review it, then remove `robots` below so Google can index it.
 export const metadata: Metadata = {
   title: "Privacy policy",
   description: `How ${site.name} collects, uses and protects your personal information.`,
   alternates: { canonical: "/privacy" },
-  robots: { index: false, follow: true },
 };
 
 const mail = <a href={`mailto:${site.email}`}>{site.email}</a>;

@@ -97,7 +97,17 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
 ];
 
 // Pages listed in the sitemap.
-export const pages = ["", "/services", "/work", "/pricing", "/about", "/resources", "/contact"];
+export const pages = [
+  "",
+  "/services",
+  "/work",
+  "/pricing",
+  "/about",
+  "/resources",
+  "/contact",
+  "/privacy",
+  "/terms",
+];
 
 /** Display version of the WhatsApp number, e.g. "+234 801 234 5678". */
 export const whatsappDisplay = site.whatsapp

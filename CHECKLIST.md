@@ -23,11 +23,11 @@ Tick items off (`[x]`) as they're done.
 - [x] **Ledgio wording and screenshots** confirmed: "In-house product" label, dashboard screenshots OK.
 - [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): next real project coming from you. 5 placeholder projects still to fill (or hide at launch). Each needs name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters.
 - [x] **Testimonials: hidden for now** (your call). The section is commented out on Home (`src/app/page.tsx`) and its nav/footer links are removed. The code is kept in `src/components/home/testimonials.tsx`; uncomment it when you have real quotes.
-- [ ] **FAQ answers** (`faq.tsx`): 6 answers. Drafts sent in chat (with Pricing and Contact FAQs) for approval.
+- [x] **FAQ answers** (`faq.tsx`): 6 answers, approved and live.
 - [ ] **Insights cards**: now come from the articles list (first three non-featured); see Resources below.
 
 ### About page (`src/components/about/about-sections.tsx`)
-- [ ] **Founding story**: draft sent in chat for approval (same school, shared goals, building ideas together).
+- [x] **Founding story**: approved and live (same university, shared goals, building ideas together; how the two of you split the work).
 - [x] Local-skills tags confirmed: Paystack & Flutterwave, WhatsApp Business API, offline-friendly apps.
 
 ### Services page (`src/components/services/services-sections.tsx`)
@@ -41,17 +41,17 @@ Tick items off (`[x]`) as they're done.
 ### Pricing page (`src/components/pricing/pricing-sections.tsx`)
 - [ ] **Starting prices** for MVP Sprint, Product Build (per phase) and Ongoing Partner (per month); all show `₦ [—]`. The hero's sample quote card also shows `₦ [—]`.
 - [x] **Proposal turnaround**: usually within 3 days.
-- [ ] **Pricing FAQ answers**: 5 answers, all placeholders.
+- [x] **Pricing FAQ answers**: 5 answers, approved and live (payments: 50% to start, 50% on delivery; naira by bank transfer, USD abroad).
 
 ### Resources page (`src/lib/articles.ts`, one list for Resources and Home)
 - [ ] **Articles**: 1 featured (title, summary, date, read time, two-line cover text; the design's is "Build vs / buy.") and 6 more (title, summary, category, date). Categories: Cost & planning, Product, Engineering, Case notes.
 
 ### Contact page
 - [ ] **Budget ranges** for the form dropdown (`src/lib/contact.ts`): `[Range 1]`, `[Range 2]`, `[Range 3]`.
-- [ ] **Contact FAQ answers** (`src/components/contact/contact-sections.tsx`): 3 answers.
+- [x] **Contact FAQ answers**: 3 answers, approved and live (first call: free, 30 minutes).
 
 ### Other pages
-- [ ] **Privacy policy and Terms: drafted, waiting for your review.** Written for a Nigeria-based studio (Nigeria Data Protection Act 2023, Nigerian law), covering what the site actually collects (contact form, newsletter, server logs; no ad trackers). Terms cover the website only; project terms go in each proposal. Still hidden from Google: after you approve, remove `robots` in `src/app/privacy/page.tsx` and `src/app/terms/page.tsx`. Not legal advice; have a lawyer look before you take on larger clients.
+- [x] **Privacy policy and Terms**: approved and live, now indexed and in the sitemap. Written for a Nigeria-based studio (Nigeria Data Protection Act 2023, Nigerian law). Not legal advice; have a lawyer look before you take on larger clients.
 
 ---
 
@@ -73,7 +73,6 @@ Tick items off (`[x]`) as they're done.
 
 | Item | Why it's deferred | Unblocked by |
 |---|---|---|
-| FAQ structured data (Google rich results), Home and Pricing | Would publish the placeholder answers to Google | FAQ answers |
 | Social share image (Open Graph) | Should use final copy and brand; easy to add once pages settle | Before launch |
 | Article cards (Resources + Home) link to `/resources`, not to individual articles | No article pages yet | Your decision on article pages |
 | 5 "high" `npm audit` warnings | All in build/dev tooling, not in code that ships to visitors. Revisit when Next.js updates | Routine updates |
@@ -116,7 +115,7 @@ Tick items off (`[x]`) as they're done.
 - Unknown `/work/...` URLs return a real 404 with the site's 404 page.
 - **Type metrics match the design exactly.** Both fonts are the Google Fonts files the design uses (self-hosted via Fontsource), and line heights follow the design's browser default instead of Tailwind's built-in 1.5 and per-size values. Measured with real fonts on both sides, every desktop section on Home, About, Services and Pricing is within 2px of the design.
 - **Phones: stacked instead of squeezed.** In several places the design's phone layout squeezes 3–5 columns into a 390px screen (Home stats and phases, About values, Pricing "In every phase" and "How pricing works"), leaving one word per line. Its phone rules never take effect. The build stacks those into readable rows, which is what the rules intended.
-- Home and Pricing FAQs share one component; Pricing FAQ has the `#faq` anchor the nav and Home link to.
+- Home, Pricing and Contact FAQs publish FAQPage structured data (Google rich results). Home and Pricing FAQs share one component; Pricing FAQ has the `#faq` anchor the nav and Home link to.
 - Resources filters and "Load more" work (the design drew them as static buttons). Filtering also applies to the featured article. "Load more" only appears when there are more than 6 articles in the current filter, so with today's 6 placeholders it's hidden.
 - Resources hero "Pricing FAQ" button goes straight to `/pricing#faq`.
 - Newsletter form: real email validation, a status message under the form (positioned so it doesn't shift the layout), and an honest "not open yet" reply until a provider is connected.

@@ -1,5 +1,24 @@
 export type FaqItem = { q: string; a: string };
 
+/** FAQPage structured data, so the answers can show directly in Google results. */
+export function FaqJsonLd({ items }: { items: FaqItem[] }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
+
 /** Expandable question list (first one open), as used on Home and Pricing. */
 export function FaqList({ items, className = "mt-11" }: { items: FaqItem[]; className?: string }) {
   return (

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { Project, Visual } from "@/lib/projects";
@@ -373,6 +374,96 @@ function ProjectVisual({ visual, size }: { visual: Visual; size: Size }) {
   }
 }
 
+/** Real screenshots: the desktop view in a browser frame, with the phone view in front of it. */
+function ShotsVisual({
+  shots,
+  size,
+  large,
+}: {
+  shots: NonNullable<Project["shots"]>;
+  size: Size;
+  /** The big image on the case-study page */
+  large: boolean;
+}) {
+  const h = size === "home";
+  const phoneW = large ? 176 : 122;
+  return (
+    <>
+      <div
+        style={{
+          position: "absolute",
+          right: large ? -60 : -40,
+          top: large ? 72 : h ? 64 : 60,
+          width: large ? "60%" : "54%",
+          height: large ? 420 : 280,
+          borderRadius: 12,
+          background: "#fff",
+          boxShadow: "0 20px 50px rgba(0,0,0,.35)",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            height: 24,
+            background: "#F4F5F2",
+            display: "flex",
+            alignItems: "center",
+            gap: 5,
+            padding: "0 10px",
+          }}
+        >
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              style={{ width: 7, height: 7, borderRadius: 999, background: "#D9DCD6" }}
+            />
+          ))}
+        </div>
+        <div style={{ position: "relative", height: "calc(100% - 24px)" }}>
+          <Image
+            src={shots.desktop}
+            alt=""
+            fill
+            sizes={large ? "720px" : "(max-width: 960px) 60vw, 380px"}
+            style={{ objectFit: "cover", objectPosition: "left top" }}
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          right: large ? 64 : 30,
+          top: large ? 128 : h ? 118 : 112,
+          width: phoneW,
+          aspectRatio: "608 / 1279",
+          borderRadius: large ? 30 : 22,
+          background: "#1C1C1C",
+          padding: large ? 7 : 5,
+          boxSizing: "content-box",
+          boxShadow: "0 24px 60px rgba(0,0,0,.45)",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            height: "100%",
+            borderRadius: large ? 24 : 18,
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            src={shots.phone}
+            alt=""
+            fill
+            sizes={`${phoneW}px`}
+            style={{ objectFit: "cover", objectPosition: "top" }}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 
 /** The coloured card image: label, tagline and illustration. Used on cards and case-study pages. */
@@ -407,7 +498,18 @@ export function ProjectMedia({
       <div className="absolute left-7 top-[26px] flex items-center gap-3 text-xs font-semibold">
         <span className="chip">Case study</span>
         <span style={{ opacity: t.divider }}>|</span>
-        <span>{project.client}</span>
+        {project.logo ? (
+          <Image
+            src={t.fg ? project.logo.dark : project.logo.light}
+            alt={project.name}
+            width={project.logo.width}
+            height={project.logo.height}
+            unoptimized
+            style={{ height: 22, width: "auto" }}
+          />
+        ) : (
+          <span>{project.client}</span>
+        )}
       </div>
       <p
         className="absolute bottom-[30px] left-7 m-0 font-semibold leading-[1.3] tracking-[-0.02em]"
@@ -417,7 +519,11 @@ export function ProjectMedia({
       </p>
       {/* On phones this layer shrinks into the bottom-right corner so it clears the tagline */}
       <div aria-hidden="true" className="wvis absolute inset-0">
-        <ProjectVisual visual={project.visual} size={size} />
+        {project.shots ? (
+          <ShotsVisual shots={project.shots} size={size} large={(height ?? 0) > 400} />
+        ) : (
+          <ProjectVisual visual={project.visual} size={size} />
+        )}
       </div>
     </div>
   );

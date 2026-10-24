@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectCard, ProjectMedia } from "@/components/project-card";
 import { WorkCta } from "@/components/work/work-sections";
-import { getProject, nextProject, projects } from "@/lib/projects";
+import { getProject, nextProject, projects, type GalleryShot } from "@/lib/projects";
 import { site } from "@/lib/site";
 
 // One page per project, built at deploy time.
@@ -33,11 +34,17 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   const next = nextProject(p.slug);
 
   const facts = [
-    { label: "Client", value: p.client },
+    { label: p.inHouse ? "Type" : "Client", value: p.client },
     { label: "Services", value: p.tags.join(", ") },
     { label: "Timeline", value: p.timeline },
     { label: "Year", value: p.year },
-  ];
+  ].filter((f) => f.value);
+
+  // Young products without numbers yet show where they're headed instead of results.
+  const showStatus = p.results.length === 0 && !!p.status?.length;
+  const outcomes = showStatus ? p.status! : p.results;
+  const desktopShots = p.gallery?.filter((g) => g.kind === "desktop") ?? [];
+  const phoneShots = p.gallery?.filter((g) => g.kind === "phone") ?? [];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -46,6 +53,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     description: p.summary,
     url: `${site.url}/work/${p.slug}`,
     creator: { "@type": "Organization", name: site.name, url: site.url },
+    ...(p.shots && { image: `${site.url}${p.shots.desktop}` }),
   };
 
   return (
@@ -80,7 +88,11 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           <h1 className="disp h1-page mt-[22px] max-w-[900px] max-phone:text-[42px]">{p.name}</h1>
           <p className="muted mt-[26px] max-w-[640px] text-lg leading-[1.6]">{p.summary}</p>
 
-          <dl className="m-0 mt-12 grid grid-cols-2 gap-x-7 border-t border-ink/12 tab:grid-cols-4 tab:gap-x-0">
+          <dl
+            className={`m-0 mt-12 grid grid-cols-2 gap-x-7 border-t border-ink/12 tab:gap-x-0 ${
+              facts.length === 3 ? "tab:grid-cols-3" : "tab:grid-cols-4"
+            }`}
+          >
             {facts.map((f, i) => (
               <div
                 key={f.label}
@@ -143,17 +155,59 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </div>
       </section>
 
-      {/* Results */}
+      {/* Screenshots */}
+      {p.gallery && p.gallery.length > 0 && (
+        <section className="tint section">
+          <div className="wrap">
+            <span className="eb">Inside the product</span>
+            <h2 className="disp h2 mt-[18px]">
+              A look
+              <br />
+              <span className="mk">inside.</span>
+            </h2>
+
+            {desktopShots[0] && <Shot shot={desktopShots[0]} className="mt-14" priority />}
+
+            {phoneShots.length > 0 && (
+              <div className="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 phone:mx-0 phone:grid phone:grid-cols-3 phone:gap-6 phone:overflow-visible phone:px-0 phone:pb-0">
+                {phoneShots.map((g) => (
+                  <Shot
+                    key={g.src}
+                    shot={g}
+                    className="w-[68%] shrink-0 snap-center phone:w-auto"
+                  />
+                ))}
+              </div>
+            )}
+
+            {desktopShots.slice(1).map((g) => (
+              <Shot key={g.src} shot={g} className="mt-10" />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Results, or where a young product is headed */}
       <section className="dark section">
         <div className="wrap">
-          <span className="eb">Results</span>
+          <span className="eb">{showStatus ? "Where it stands" : "Results"}</span>
           <h2 className="disp h2 mt-[18px]">
-            What changed
-            <br />
-            <span className="mk-d">after launch.</span>
+            {showStatus ? (
+              <>
+                Early days,
+                <br />
+                <span className="mk-d">built to scale.</span>
+              </>
+            ) : (
+              <>
+                What changed
+                <br />
+                <span className="mk-d">after launch.</span>
+              </>
+            )}
           </h2>
           <dl className="m-0 mt-14 grid grid-cols-1 border-t border-white/14 phone:grid-cols-3">
-            {p.results.map((r, i) => (
+            {outcomes.map((r, i) => (
               <div
                 key={i}
                 className={`flex flex-col-reverse pt-10 phone:px-6 ${
@@ -224,5 +278,52 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
       <WorkCta />
     </>
+  );
+}
+
+/** One screenshot in a browser or phone frame, with a caption. */
+function Shot({
+  shot,
+  className = "",
+  priority = false,
+}: {
+  shot: GalleryShot;
+  className?: string;
+  priority?: boolean;
+}) {
+  const phone = shot.kind === "phone";
+  return (
+    <figure className={`m-0 ${className}`}>
+      {phone ? (
+        <div className="mx-auto max-w-[300px] rounded-[34px] bg-[#1C1C1C] p-2 shadow-[0_24px_60px_rgba(17,17,17,.18)]">
+          <Image
+            src={shot.src}
+            alt={shot.alt}
+            width={shot.width}
+            height={shot.height}
+            sizes="(max-width: 640px) 68vw, 300px"
+            className="block h-auto w-full rounded-[27px]"
+          />
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_24px_60px_rgba(17,17,17,.10)]">
+          <div className="flex h-7 items-center gap-1.5 bg-[#F4F5F2] px-3" aria-hidden="true">
+            {[0, 1, 2].map((i) => (
+              <span key={i} className="h-2 w-2 rounded-full bg-[#D9DCD6]" />
+            ))}
+          </div>
+          <Image
+            src={shot.src}
+            alt={shot.alt}
+            width={shot.width}
+            height={shot.height}
+            priority={priority}
+            sizes="(max-width: 1240px) 100vw, 1200px"
+            className="block h-auto w-full"
+          />
+        </div>
+      )}
+      <figcaption className="muted mt-3 text-center text-sm">{shot.caption}</figcaption>
+    </figure>
   );
 }

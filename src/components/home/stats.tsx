@@ -1,7 +1,8 @@
-// TODO: replace [00] with real numbers once you have them.
 const stats = [
-  { value: "[00]", suffix: "+", label: "Products shipped" },
-  { value: "[00]", suffix: "+", label: "Clients served" },
+  { value: "2", suffix: "+", label: "Products shipped" },
+  // Hidden until there are clients to count. Uncomment and set the number, then switch the
+  // grid below back to four columns (phone:grid-cols-2 tab:grid-cols-4).
+  // { value: "0", suffix: "+", label: "Clients served" },
   { value: "4–6", suffix: "wk", label: "Typical build phase" },
   { value: "100", suffix: "%", label: "Code you own" },
 ];
@@ -14,12 +15,12 @@ export function Stats() {
           Most software problems start as business problems. We work out the outcome first, so what
           we ship <span className="mk-d">moves the number you care about.</span>
         </p>
-        <dl className="mt-[88px] grid grid-cols-1 border-t border-white/14 phone:grid-cols-2 tab:grid-cols-4">
+        <dl className="mt-[88px] grid grid-cols-1 border-t border-white/14 phone:grid-cols-3">
           {stats.map((s, i) => (
             <div
               key={s.label}
               className={`flex flex-col-reverse px-4 pt-11 text-center ${
-                i > 0 ? "tab:border-l tab:border-white/14" : ""
+                i > 0 ? "phone:border-l phone:border-white/14" : ""
               }`}
             >
               <dt className="mt-2.5 text-sm font-semibold text-white/70">{s.label}</dt>

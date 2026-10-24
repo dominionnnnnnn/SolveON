@@ -18,8 +18,8 @@ Tick items off (`[x]`) as they're done.
 - [x] **Co-founder** (`src/lib/content.ts`): Adefalu Abdulrahman. Done: role (Frontend & Product), bio, photo, portfolio / GitHub / LinkedIn / email icons.
 
 ### Home page (`src/components/home/`)
-- [ ] **Stats** (`stats.tsx`): "Products shipped" and "Clients served" show `[00]`. Real numbers, or tell me to remove those two.
-- [x] **Ledgio** added as the first case study (`/work/ledgio`, live and indexed): logo, real phone screenshot in the design's tilted phone on the card, a 5-screenshot gallery, and a "Where it stands" band (Live / Early / Next) instead of results, since it has no usage numbers yet. Shown as an **in-house product**; no first-user or client details anywhere.
+- [x] **Stats** (`stats.tsx`): 2+ products shipped, 4–6 wk typical build phase, 100% code you own. "Clients served" is commented out until there are clients (the row is three across for now).
+- [x] **Ledgio** added as the first case study (`/work/ledgio`, live and indexed): logo, real screenshots on the card, a 5-screenshot gallery, and a "Where it stands" band (Live / Early / Next) instead of results, since it has no usage numbers yet. Shown as an **in-house product**; no first-user or client details anywhere.
 - [ ] **Ledgio: confirm the wording** (label "In-house product" vs "Personal project", tagline, summary, the three "built" points and the Live / Early / Next lines) and **the two dashboard screenshots**: their account name and avatar are cropped out, but the worker names and figures are from that account. Send demo-account screenshots to swap them if you'd rather not show that data.
 - [ ] **Case studies** (`src/lib/projects.ts`, one list for Home and Work): 5 placeholder projects still to fill (or hide at launch). Each needs name, client, one-line tagline, two-line summary, tags and filter categories. Home shows the first four, so order matters.
 - [x] **Testimonials: hidden for now** (your call). The section is commented out on Home (`src/app/page.tsx`) and its nav/footer links are removed. The code is kept in `src/components/home/testimonials.tsx`; uncomment it when you have real quotes.
@@ -108,7 +108,7 @@ Tick items off (`[x]`) as they're done.
 - About and Services heroes keep their full 80px/96px padding on phones, as the design renders (its phone padding rule doesn't reach these heroes).
 - Services page publishes each core service as structured data for search engines (real content, so no placeholder risk).
 - Work filters: the design only drew the buttons; in the build they filter by each project's categories.
-- Projects with real screenshots (`shots` in `projects.ts`) show the phone screenshot on the card inside the design's tilted phone frame (same size, position and tilt as the drawn phone), plus the project's own logo in the card label. Case-study pages show a `gallery` (desktop shots full width, phone shots three across, swiping sideways on phones). Projects without numbers yet use `status` instead of `results`; `timeline` is optional.
+- Projects with real screenshots (`shots` in `projects.ts`) show them on the card: the desktop view in a browser frame with the phone view in front, plus the project's own logo in the card label. Case-study pages show a `gallery` (desktop shots full width, phone shots three across, swiping sideways on phones). Projects without numbers yet use `status` instead of `results`; `timeline` is optional.
 - Case-study cards on phones: in the design the illustration covers the tagline (and the mobile export overflows sideways). The build shrinks the illustration into the bottom-right corner on phones, on both Home and Work.
 - Home and Work cards share one component and one project list; the illustrations keep each page's exact sizes from the design.
 - Work hero: the text column is wider than on other pages (680px vs 520px basis) so "Products that had to" fits on one line; the illustration column narrows to fit.

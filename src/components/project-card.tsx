@@ -374,7 +374,10 @@ function ProjectVisual({ visual, size }: { visual: Visual; size: Size }) {
   }
 }
 
-/** Real screenshots: the desktop view in a browser frame, with the phone view in front of it. */
+/**
+ * A real phone screenshot inside the design's tilted phone frame
+ * (same position, size and tilt as the drawn phone illustration).
+ */
 function ShotsVisual({
   shots,
   size,
@@ -386,81 +389,40 @@ function ShotsVisual({
   large: boolean;
 }) {
   const h = size === "home";
-  const phoneW = large ? 176 : 122;
+  const w = large ? 220 : h ? 170 : 160;
   return (
-    <>
+    <div
+      style={{
+        position: "absolute",
+        right: large ? 80 : 44,
+        top: large ? 56 : h ? 44 : 40,
+        width: w,
+        height: w * 2,
+        borderRadius: large ? 38 : h ? 30 : 28,
+        background: "#262626",
+        padding: large ? 9 : 7,
+        boxSizing: "border-box",
+        transform: "rotate(-5deg)",
+      }}
+    >
       <div
         style={{
-          position: "absolute",
-          right: large ? -60 : -40,
-          top: large ? 72 : h ? 64 : 60,
-          width: large ? "60%" : "54%",
-          height: large ? 420 : 280,
-          borderRadius: 12,
-          background: "#fff",
-          boxShadow: "0 20px 50px rgba(0,0,0,.35)",
+          position: "relative",
+          height: "100%",
+          borderRadius: large ? 30 : h ? 24 : 22,
           overflow: "hidden",
+          background: "#fff",
         }}
       >
-        <div
-          style={{
-            height: 24,
-            background: "#F4F5F2",
-            display: "flex",
-            alignItems: "center",
-            gap: 5,
-            padding: "0 10px",
-          }}
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              style={{ width: 7, height: 7, borderRadius: 999, background: "#D9DCD6" }}
-            />
-          ))}
-        </div>
-        <div style={{ position: "relative", height: "calc(100% - 24px)" }}>
-          <Image
-            src={shots.desktop}
-            alt=""
-            fill
-            sizes={large ? "720px" : "(max-width: 960px) 60vw, 380px"}
-            style={{ objectFit: "cover", objectPosition: "left top" }}
-          />
-        </div>
+        <Image
+          src={shots.phone}
+          alt=""
+          fill
+          sizes={`${w}px`}
+          style={{ objectFit: "cover", objectPosition: "top" }}
+        />
       </div>
-      <div
-        style={{
-          position: "absolute",
-          right: large ? 64 : 30,
-          top: large ? 128 : h ? 118 : 112,
-          width: phoneW,
-          aspectRatio: "608 / 1279",
-          borderRadius: large ? 30 : 22,
-          background: "#1C1C1C",
-          padding: large ? 7 : 5,
-          boxSizing: "content-box",
-          boxShadow: "0 24px 60px rgba(0,0,0,.45)",
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            height: "100%",
-            borderRadius: large ? 24 : 18,
-            overflow: "hidden",
-          }}
-        >
-          <Image
-            src={shots.phone}
-            alt=""
-            fill
-            sizes={`${phoneW}px`}
-            style={{ objectFit: "cover", objectPosition: "top" }}
-          />
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 
